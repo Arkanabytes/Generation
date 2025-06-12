@@ -14,7 +14,6 @@ public class Operadores {
     int b = 5;
 
     // variables de resultado
-
     int resultadoSuma = a + b;
     int resultadoResta = a - b;
     int resultadoMultiplicacion = a * b;
