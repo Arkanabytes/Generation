@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-//creamos una instancia de las clase de Variables-> esta instancia ocupa un espacio en memoria
+        //creamos una instancia de las clase de Variables-> esta instancia ocupa un espacio en memoria
         Variables variables = new Variables();
         Scanner miScanner = new Scanner(System.in);
         //instanciar un objeto equivalente o asignarle un espacio en memoria
