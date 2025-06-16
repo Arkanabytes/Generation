@@ -1,6 +1,7 @@
-![](Prueba_1/Generation.jpg.)
+<p align="center">
+  <img src="https://github.com/Arkanabytes/Generation/blob/Pseint/Prueba_1/Generation.jpg">
+</p>
 
-# Ejercicicios
 
 ## Objectives 
 🧠 Bootcamp Java — Ejercicios Diarios
@@ -34,19 +35,19 @@ Este repositorio forma parte de mi proceso de formación como desarrollador Java
 IntelliJ IDEA / VS Code
 Git & GitHub
 
-Operadores                    | Condicionales               | Bucles                      | Misceláneos
-:---------------------------- | :-------------------------: | :-------------------------: | -------------------------:
-Operadores.java               | IfSimple.java               | For.java                    | Variables.java
-OperadoresAsignacion.java     | IfBoolean.java              | For2.java                   | 
-OperadoresComparacion.java    | IfAnidados.java             | For3.java                   | 
-OperadorTernario.java         | IfAnidados2.java            |                             | 
-                              | ElseIf.java                 |                             | 
-                              | ElseIf2.java                |                             | 
-                              | ElseIf3.java                |                             | 
-                              | Switch.java                 |                             | 
-                              | Switch2.java                |                             | 
-                              | Switch3.java                |                             | 
-                              | Switch4.java                |                             | 
+| Operadores                   | Condicionales               | Bucles       | Misceláneos     |
+|:-----------------------------|:----------------------------:|:------------:|----------------:|
+| Operadores.java              | IfSimple.java               | For.java     | Variables.java  |
+| OperadoresAsignacion.java   | IfBoolean.java              | For2.java    |                 |
+| OperadoresComparacion.java  | IfAnidados.java             | For3.java    |                 |
+| OperadorTernario.java        | IfAnidados2.java            |              |                 |
+|                              | ElseIf.java                 |              |                 |
+|                              | ElseIf2.java                |              |                 |
+|                              | ElseIf3.java                |              |                 |
+|                              | Switch.java                 |              |                 |
+|                              | Switch2.java                |              |                 |
+|                              | Switch3.java                |              |                 |
+|                              | Switch4.java                |              |                 |
 
 
 
