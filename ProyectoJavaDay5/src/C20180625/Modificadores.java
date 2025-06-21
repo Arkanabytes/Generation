@@ -1,18 +1,16 @@
 package C20180625;
 
 public class Modificadores {
-    public static void main(String[] args) {
-
-        Modificadores mod = new Modificadores();
-        // Acceso PÚBLICO (sin restricciones)
-        System.out.println("Público: " + mod.publicoEjemplo);
-        // Privado: Error de compilación (solo accesible dentro de su clase)
-        // System.out.println("Privado: " + mod.privado);
-        // Acceso al privado vía método público (getter)
-        System.out.println("Privado (vía getter): " + mod.getPrivado());
-        // Acceso PROTEGIDO (mismo paquete)
-        System.out.println("Protegido: " + mod.protegido);
-        // Acceso DEFAULT (mismo paquete)
-        System.out.println("Default: " + mod.defecto);
+    // Acceso PÚBLICO (visible en cualquier parte)
+    public int publicoEjemplo = 10;
+    // Acceso PRIVADO (solo visible en esta clase)
+    private int privado = 20;
+    // Acceso PROTEGIDO (visible en paquete y subclases)
+    protected int protegido = 30;
+    // Acceso DEFAULT (visible solo en el mismo paquete)
+    int defecto = 40;
+    // Método para acceder al 'privado' desde otra clase
+    public int getPrivado() {
+        return this.privado;
     }
 }
