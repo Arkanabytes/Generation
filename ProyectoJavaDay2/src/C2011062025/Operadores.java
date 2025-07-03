@@ -9,7 +9,6 @@ public class Operadores {
     / -> Division
     % modulo o resto
      */
-
     int a = 10;
     int b = 5;
 
