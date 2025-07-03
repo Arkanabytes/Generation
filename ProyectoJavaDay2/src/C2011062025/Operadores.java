@@ -19,6 +19,4 @@ public class Operadores {
     int resultadoMultiplicacion = a * b;
     int resultadoDivision = a / b;
     int restoDivision = a%b;
-
-
 }
