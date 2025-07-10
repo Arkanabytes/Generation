@@ -34,6 +34,8 @@ Este repositorio forma parte de mi proceso de formación como desarrollador Java
 🛠️ Tecnologías
 IntelliJ IDEA / VS Code
 Git & GitHub
+Html
+Javascript
 
 | Operadores                   | Condicionales               | Bucles       | Misceláneos     |
 |:-----------------------------|:----------------------------:|:------------:|----------------:|
