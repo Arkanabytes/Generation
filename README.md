@@ -319,7 +319,7 @@ git push origin feature/nuevo-ejercicio
 
 **⭐ Si este repositorio te resulta útil, considera darle una estrella para apoyar mi proceso de aprendizaje.**
 
-![GitHub stars](https://img.shields.io/github/stars/tu-usuario/bootcamp-java-ejercicios?style=social)
+![GitHub stars](https://img.shields.io/github/stars/Arkanabytes/bootcamp-java-ejercicios?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/tu-usuario/bootcamp-java-ejercicios?style=social)
 ![GitHub watchers](https://img.shields.io/github/watchers/tu-usuario/bootcamp-java-ejercicios?style=social)
 
