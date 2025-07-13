@@ -305,9 +305,9 @@ git push origin feature/nuevo-ejercicio
 
 | Plataforma | Usuario/Enlace |
 |------------|----------------|
-| **GitHub** | [@tu-usuario](https://github.com/Arkanabytes) |
+| **GitHub** | [@Arkanabytes](https://github.com/Arkanabytes) |
 | **Email** | konshuelo@hotmail.com |
-| **LinkedIn** | [Tu Perfil](https://www.linkedin.com/in/consuelo-alejandra-pinto-toro/) |
+| **LinkedIn** | [Consuelo Pinto Toro](https://www.linkedin.com/in/consuelo-alejandra-pinto-toro/) |
 
 </div>
 
