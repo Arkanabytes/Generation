@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Página semántica de ejemplo para iniciarse en HTML">
+  <meta name="keywords" content="HTML, semántica, estructura">
+  <meta name="author" content="Guido">
+  <title>Ejemplo Semántico</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Raíces Digitales C2</h1>
+    <nav>
+      <ul>
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#equipo">Nuestro Equipo</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="inicio">
+      <h2>Bienvenid@</h2>
+      <p>Este es un ejemplo de página web con etiquetas semánticas.</p>
+    </section>
+
+    <section id="equipo">
+      <h2>Nuestro Equipo</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Edad</th>
+            <th>Hobby</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Martin</td>
+            <td>23</td>
+            <td>Escalar cerros</td>
+          </tr>
+          <tr>
+            <td>Pablo</td>
+            <td>26</td>
+            <td>Resolver acertijos</td>
+          </tr>
+          <tr>
+            <td>Carolina</td>
+            <td>27</td>
+            <td>Diseño gráfico</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="contacto">
+      <h2>Contacto</h2>
+      <form>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+
+        <label for="mensaje">Mensaje:</label>
+        <textarea id="mensaje" name="mensaje"></textarea>
+
+        <button type="submit">Enviar</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Raíces Digitales - Todos los derechos reservados e izquierdos reservados.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
