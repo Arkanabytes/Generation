@@ -1,0 +1,83 @@
+/* Establece estilos base para todo el documento */
+body {
+  /* Define la fuente sans-serif para todo el cuerpo del documento */
+  font-family: sans-serif;
+  /* Elimina los márgenes por defecto del navegador */
+  margin: 0;
+  /* Elimina el padding por defecto del navegador */
+  padding: 0;
+}
+
+/* Estilos para el encabezado */
+header {
+  /* Color de fondo verde oscuro para el encabezado */
+  background-color: #2e8b57;
+  /* Color de texto blanco para el encabezado */
+  color: white;
+  /* Espaciado interno de 1 rem alrededor del contenido del encabezado */
+  padding: 1rem;
+  /* Centra el texto dentro del encabezado */
+  text-align: center;
+}
+
+/* Estilos para la lista de navegación */
+nav ul {
+  /* Elimina los estilos de lista (viñetas) */
+  list-style: none;
+  /* Convierte la lista en un contenedor flex */
+  display: flex;
+  /* Centra los elementos de navegación horizontalmente */
+  justify-content: center;
+  /* Espacio de 1rem entre elementos de navegación */
+  gap: 1rem;
+  /* Elimina el padding por defecto de la lista */
+  padding: 0;
+}
+
+/* Estilos para los enlaces de navegación */
+nav a {
+  /* Color de texto blanco para los enlaces */
+  color: white;
+  /* Elimina el subrayado por defecto de los enlaces */
+  text-decoration: none;
+}
+
+/* Estilos para el contenido principal */
+main {
+  /* Añade un espaciado interno de 1rem alrededor del contenido principal */
+  padding: 1rem;
+}
+
+/* Estilos para las secciones */
+section {
+  /* Añade un margen inferior de 2rem para separar secciones */
+  margin-bottom: 2rem;
+}
+
+/* Estilos para las tablas */
+table {
+  /* Hace que la tabla ocupe el 100% del ancho disponible */
+  width: 100%;
+  /* Colapsa los bordes de las celdas para un aspecto más limpio */
+  border-collapse: collapse;
+  /* Añade un margen superior de 1rem para separar la tabla de elementos anteriores */
+  margin-top: 1rem;
+}
+
+/* Estilos para celdas de encabezado y datos */
+th, td {
+  /* Añade un borde de 1px sólido color gris claro */
+  border: 1px solid #ccc;
+  /* Añade un espaciado interno de 0.5rem en las celdas */
+  padding: 0.5rem;
+  /* Alinea el texto a la izquierda en las celdas */
+  text-align: left;
+}
+
+/* Estilos específicos para celdas de encabezado */
+th {
+  /* Fondo verde para las celdas de encabezado */
+  background-color: #4CAF50;
+  /* Texto blanco para las celdas de encabezado */
+  color: White;
+}
