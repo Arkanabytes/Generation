@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manipulación de Formulario</title>
+</head>
+<body>
+
+    <form id="myForm">
+        <label for="username">Usuario:</label>
+        <input type="text" id="username" name="username">
+
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password">
+
+        <button type="button" onclick="submitForm()">Enviar</button>
+    </form>
+
+    <script>
+        function submitForm() {
+            // Acceder a los valores del formulario
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            // Realizar acciones o validaciones
+            if (username === "" || password === "") {
+                alert("Por favor, complete todos los campos.");
+            } else {
+                // Enviar el formulario o realizar otras acciones
+                alert("Formulario enviado con éxito");
+                document.getElementById("myForm").submit(); // Envía el formulario
+            }
+        }
+    </script>
+
+</body>
+</html>
