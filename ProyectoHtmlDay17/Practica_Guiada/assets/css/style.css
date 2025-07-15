@@ -1,0 +1,223 @@
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --warning-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    --card-hover-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.modern-gradient {
+    background: var(--primary-gradient);
+    color: white;
+}
+
+.glassmorphism {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.card-hover {
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--card-hover-shadow);
+}
+
+.btn-modern {
+    border-radius: 50px;
+    padding: 12px 30px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    border: none;
+    background: var(--primary-gradient);
+    color: white;
+}
+
+.btn-modern:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    color: white;
+}
+
+.form-floating .form-control:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+.price-tag {
+    background: var(--success-gradient);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.product-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--warning-gradient);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+.navbar-modern {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.section-divider {
+    height: 3px;
+    background: var(--primary-gradient);
+    border-radius: 2px;
+    margin: 3rem 0;
+}
+
+.floating-label {
+    position: relative;
+    overflow: hidden;
+}
+
+.floating-label .form-control {
+    padding: 1rem 0.75rem 0.5rem;
+}
+
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+}
+
+.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hero-section {
+    background: var(--primary-gradient);
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Media Queries Clásicas */
+
+/* Solo para pantallas con ancho mínimo de 768px */
+@media (min-width: 768px) {
+    .section-title {
+        font-size: 3rem;
+    }
+    .hero-section {
+        padding: 6rem 0;
+    }
+}
+
+/* Solo para pantallas con ancho máximo de 767px */
+@media (max-width: 767px) {
+    .navbar-modern {
+        background: rgba(255, 255, 255, 0.98);
+    }
+    .btn-modern {
+        padding: 10px 20px;
+    }
+}
+
+/* Para pantallas entre 640px y 767px */
+@media (min-width: 640px) and (max-width: 767px) {
+    .card-hover {
+        margin-bottom: 2rem;
+    }
+    .price-tag {
+        font-size: 1rem;
+    }
+}
+
+/* Media Queries Modernas con sintaxis de rangos */
+
+/* Para pantallas con ancho mayor o igual a 1024px */
+@media (width >= 1024px) {
+    .hero-section {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+    }
+    .glassmorphism {
+        border-radius: 20px;
+    }
+}
+
+/* Para pantallas con ancho menor o igual a 639px */
+@media (width <= 639px) {
+    .modern-gradient {
+        background: linear-gradient(135deg, #667eea 0%, #4a2d80 100%);
+    }
+    .product-badge {
+        top: 10px;
+        right: 10px;
+        font-size: 0.7em;
+    }
+}
+
+/* Para pantallas entre 640px y 767px (nueva sintaxis) */
+@media (640px <= width < 768px) {
+    .section-divider {
+        margin: 2rem 0;
+    }
+    .floating-label .form-control {
+        padding: 0.8rem 0.6rem 0.4rem;
+    }
+}
+
+/* Para pantallas entre 768px y 1023px */
+@media (768px <= width < 1024px) {
+    .section-title {
+        font-size: 2.8rem;
+    }
+    .card-hover:hover {
+        transform: translateY(-3px);
+    }
+}
+
+/* Ejemplo combinando ambas sintaxis para máxima compatibilidad */
+@media (width >= 1200px), (min-width: 1200px) {
+    .container-lg {
+        max-width: 1400px;
+    }
+    .animate-on-scroll {
+        transition-delay: 0.2s;
+    }
+}
+
+/* Media Query para orientación landscape */
+@media (orientation: landscape) and (width <= 768px) {
+    .hero-section {
+        padding: 2rem 0;
+    }
+}
+
+/* Media Query para alta densidad de píxeles */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) { 
+    .glassmorphism {
+        border-width: 0.5px;
+    }
+}
