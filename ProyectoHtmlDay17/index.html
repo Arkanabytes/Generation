@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios Bootstrap 2025 - Soluciones Modernas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+</head>
+<body>
+    <!-- Navbar Moderna -->
+    <nav class="navbar navbar-expand-lg navbar-modern fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#" style="color: #667eea;">
+                <i class="fas fa-code me-2"></i>Bootstrap 2025
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#ejercicio1">Formulario</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#ejercicio2">Layout</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#ejercicio3">Productos</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-4">
+                <i class="fas fa-rocket me-3"></i>
+                Ejercicios Bootstrap 2025
+            </h1>
+            <p class="lead mb-4">Soluciones modernas y profesionales con las últimas tendencias</p>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="d-flex justify-content-center gap-3 flex-wrap">
+                        <span class="badge bg-light text-dark px-3 py-2">Bootstrap 5.3</span>
+                        <span class="badge bg-light text-dark px-3 py-2">Responsive Design</span>
+                        <span class="badge bg-light text-dark px-3 py-2">Modern UI/UX</span>
+                        <span class="badge bg-light text-dark px-3 py-2">Glassmorphism</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container mt-5 pt-5">
+        
+        <!-- EJERCICIO 1: Formulario de Contacto Moderno -->
+        <section id="ejercicio1" class="mb-5">
+            <div class="text-center mb-5">
+                <h2 class="section-title">
+                    <i class="fas fa-envelope me-3"></i>
+                    Ejercicio 1: Formulario de Contacto
+                </h2>
+                <p class="text-muted">Formulario moderno con validación visual y efectos glassmorphism</p>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card card-hover glassmorphism">
+                        <div class="card-body p-5">
+                            <form id="contactForm" novalidate>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-4">
+                                            <input type="text" class="form-control" id="nombre" placeholder="Tu nombre" required>
+                                            <label for="nombre">
+                                                <i class="fas fa-user me-2"></i>Nombre completo
+                                            </label>
+                                            <div class="invalid-feedback">
+                                                Por favor ingresa tu nombre.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-4">
+                                            <input type="email" class="form-control" id="email" placeholder="tu@email.com" required>
+                                            <label for="email">
+                                                <i class="fas fa-envelope me-2"></i>Correo electrónico
+                                            </label>
+                                            <div class="invalid-feedback">
+                                                Por favor ingresa un email válido.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-4">
+                                            <select class="form-select" id="pais" required>
+                                                <option value="">Selecciona tu país</option>
+                                                <option value="AR">Argentina</option>
+                                                <option value="CL">Chile</option>
+                                                <option value="CO">Colombia</option>
+                                                <option value="MX">México</option>
+                                                <option value="PE">Perú</option>
+                                                <option value="ES">España</option>
+                                                <option value="US">Estados Unidos</option>
+                                            </select>
+                                            <label for="pais">
+                                                <i class="fas fa-globe me-2"></i>País
+                                            </label>
+                                            <div class="invalid-feedback">
+                                                Por favor selecciona tu país.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-4">
+                                            <select class="form-select" id="asunto" required>
+                                                <option value="">Selecciona un tema</option>
+                                                <option value="consulta">Consulta general</option>
+                                                <option value="soporte">Soporte técnico</option>
+                                                <option value="ventas">Información de ventas</option>
+                                                <option value="sugerencia">Sugerencia</option>
+                                            </select>
+                                            <label for="asunto">
+                                                <i class="fas fa-tag me-2"></i>Asunto
+                                            </label>
+                                            <div class="invalid-feedback">
+                                                Por favor selecciona un asunto.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-floating mb-4">
+                                    <textarea class="form-control" placeholder="Tu mensaje" id="mensaje" style="height: 120px" required></textarea>
+                                    <label for="mensaje">
+                                        <i class="fas fa-comment me-2"></i>Mensaje
+                                    </label>
+                                    <div class="invalid-feedback">
+                                        Por favor escribe tu mensaje.
+                                    </div>
+                                </div>
+
+                                <div class="form-check mb-4">
+                                    <input class="form-check-input" type="checkbox" value="" id="terminos" required>
+                                    <label class="form-check-label" for="terminos">
+                                        Acepto los <a href="#" class="text-decoration-none">términos y condiciones</a> y la <a href="#" class="text-decoration-none">política de privacidad</a>
+                                    </label>
+                                    <div class="invalid-feedback">
+                                        Debes aceptar los términos y condiciones.
+                                    </div>
+                                </div>
+
+                                <div class="form-check mb-4">
+                                    <input class="form-check-input" type="checkbox" value="" id="newsletter">
+                                    <label class="form-check-label" for="newsletter">
+                                        Quiero recibir noticias y actualizaciones por email
+                                    </label>
+                                </div>
+
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <button class="btn btn-outline-secondary me-md-2" type="button">
+                                        <i class="fas fa-times me-2"></i>Cancelar
+                                    </button>
+                                    <button class="btn btn-modern" type="submit">
+                                        <i class="fas fa-paper-plane me-2"></i>Enviar mensaje
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- EJERCICIO 2: Layout Responsivo de 3 Columnas -->
+        <section id="ejercicio2" class="mb-5">
+            <div class="text-center mb-5">
+                <h2 class="section-title">
+                    <i class="fas fa-th-large me-3"></i>
+                    Ejercicio 2: Layout Responsivo
+                </h2>
+                <p class="text-muted">Sistema de columnas adaptativo con contenido dinámico</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="card card-hover h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="bg-primary bg-opacity-10 rounded-circle p-3 me-3">
+                                    <i class="fas fa-chart-line text-primary fs-4"></i>
+                                </div>
+                                <div>
+                                    <h5 class="card-title mb-0">Analytics</h5>
+                                    <small class="text-muted">Datos en tiempo real</small>
+                                </div>
+                            </div>
+                            <p class="card-text">Monitorea el rendimiento de tu sitio web con métricas avanzadas y reportes detallados.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-success">Activo</span>
+                                <small class="text-muted">Actualizado hace 5 min</small>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent border-0">
+                            <a href="#" class="btn btn-outline-primary w-100">
+                                <i class="fas fa-chart-bar me-2"></i>Ver Dashboard
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="card card-hover h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="bg-success bg-opacity-10 rounded-circle p-3 me-3">
+                                    <i class="fas fa-users text-success fs-4"></i>
+                                </div>
+                                <div>
+                                    <h5 class="card-title mb-0">Usuarios</h5>
+                                    <small class="text-muted">Gestión de perfiles</small>
+                                </div>
+                            </div>
+                            <p class="card-text">Administra usuarios, roles y permisos con un sistema completo de autenticación.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-info">1,234 usuarios</span>
+                                <small class="text-muted">+15% este mes</small>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent border-0">
+                            <a href="#" class="btn btn-outline-success w-100">
+                                <i class="fas fa-user-plus me-2"></i>Gestionar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-12">
+                    <div class="card card-hover h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="bg-warning bg-opacity-10 rounded-circle p-3 me-3">
+                                    <i class="fas fa-cog text-warning fs-4"></i>
+                                </div>
+                                <div>
+                                    <h5 class="card-title mb-0">Configuración</h5>
+                                    <small class="text-muted">Ajustes del sistema</small>
+                                </div>
+                            </div>
+                            <p class="card-text">Personaliza tu aplicación con opciones avanzadas y configuraciones específicas.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-warning">Pendiente</span>
+                                <small class="text-muted">Revisar configuración</small>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent border-0">
+                            <a href="#" class="btn btn-outline-warning w-100">
+                                <i class="fas fa-tools me-2"></i>Configurar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección adicional para demostrar el comportamiento responsivo -->
+            <div class="mt-5">
+                <div class="alert alert-info" role="alert">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>Comportamiento Responsivo:</strong>
+                    <ul class="mb-0 mt-2">
+                        <li><strong>Desktop (≥992px):</strong> 3 columnas iguales</li>
+                        <li><strong>Tablet (768px-991px):</strong> 2 columnas + 1 columna debajo</li>
+                        <li><strong>Móvil (<768px):</strong> 1 columna apilada</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- EJERCICIO 3: Tarjetas de Productos -->
+        <section id="ejercicio3" class="mb-5">
+            <div class="text-center mb-5">
+                <h2 class="section-title">
+                    <i class="fas fa-shopping-cart me-3"></i>
+                    Ejercicio 3: Catálogo de Productos
+                </h2>
+                <p class="text-muted">Tienda moderna con efectos hover y diseño contemporáneo</p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Producto 1 -->
+                <div class="col-xl-4 col-md-6">
+                    <div class="card card-hover h-100 position-relative">
+                        <div class="product-badge">Nuevo</div>
+                        <div class="position-relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=250&fit=crop" class="card-img-top" alt="Auriculares Premium" style="height: 250px; object-fit: cover;">
+                            <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 opacity-0 transition-opacity d-flex align-items-center justify-content-center" style="transition: opacity 0.3s ease;">
+                                <button class="btn btn-light">
+                                    <i class="fas fa-eye me-2"></i>Vista rápida
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h5 class="card-title">Auriculares Premium</h5>
+                                <div class="text-warning">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="card-text text-muted">Sonido de alta calidad con cancelación de ruido activa. Perfectos para profesionales y amantes de la música.</p>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="price-tag">$299.990</span>
+                                <small class="text-muted text-decoration-line-through">$399.990</small>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-modern flex-fill">
+                                    <i class="fas fa-cart-plus me-2"></i>Agregar al carrito
+                                </button>
+                                <button class="btn btn-outline-danger">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 2 -->
+                <div class="col-xl-4 col-md-6">
+                    <div class="card card-hover h-100 position-relative">
+                        <div class="product-badge bg-danger">-25%</div>
+                        <div class="position-relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=400&h=250&fit=crop" class="card-img-top" alt="Smartwatch Deportivo" style="height: 250px; object-fit: cover;">
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h5 class="card-title">Smartwatch Deportivo</h5>
+                                <div class="text-warning">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="card-text text-muted">Monitorea tu actividad física con GPS integrado, resistente al agua y batería de larga duración.</p>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="price-tag">$199.990</span>
+                                <small class="text-muted text-decoration-line-through">$249.990</small>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-modern flex-fill">
+                                    <i class="fas fa-cart-plus me-2"></i>Agregar al carrito
+                                </button>
+                                <button class="btn btn-outline-danger">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 3 -->
+                <div class="col-xl-4 col-md-6">
+                    <div class="card card-hover h-100 position-relative">
+                        <div class="product-badge bg-success">Popular</div>
+                        <div class="position-relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1698512475067-74ed7c956c8d?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="Laptop Gaming" style="height: 250px; object-fit: cover;">
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h5 class="card-title">Laptop Gaming Pro</h5>
+                                <div class="text-warning">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="card-text text-muted">Potencia extrema para gaming y trabajo profesional. RTX 4070, 32GB RAM, SSD 1TB.</p>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="price-tag">$890.000</span>
+                                <small class="text-success">Envío gratis</small>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-modern flex-fill">
+                                    <i class="fas fa-cart-plus me-2"></i>Agregar al carrito
+                                </button>
+                                <button class="btn btn-outline-danger">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 4 -->
+                <div class="col-xl-4 col-md-6">
+                    <div class="card card-hover h-100 position-relative">
+                        <div class="product-badge bg-info">Limitado</div>
+                        <div class="position-relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?w=400&h=250&fit=crop" class="card-img-top" alt="Smartphone 5G" style="height: 250px; object-fit: cover;">
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h5 class="card-title">Smartphone 5G Ultra</h5>
+                                <div class="text-warning">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                            <p class="card-text text-muted">Última generación con cámara IA, pantalla 120Hz y carga inalámbrica ultrarrápida.</p>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="price-tag">$350.000</span>
+                                <small class="text-muted">12 cuotas sin interés</small>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-modern flex-fill">
+                                    <i class="fas fa-cart-plus me-2"></i>Agregar al carrito
+                                </button>
+                                <button class="btn btn-outline-danger">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 5 -->
+                <div class="col-xl-4 col-md-6">
+                    <div class="card card-hover h-100 position-relative">
+                        <div class="product-badge">Eco-friendly</div>
+                        <div class="position-relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1710855492709-aa06902e181c?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="Tablet Profesional" style="height: 250px; object-fit: cover;">
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h5 class="card-title">Tablet Profesional</h5>
+                                <div class="text-warning">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="card-text text-muted">Perfecta para creativos y profesionales. Incluye stylus y teclado magnético premium.</p>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="price-tag">$150.000</span>
+                                <small class="text-success">Stock disponible</small>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-modern flex-fill">
+                                    <i class="fas fa-cart-plus me-2"></i>Agregar al carrito
+                                </button>
+                                <button class="btn btn-outline-danger">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 6 -->
+                <div class="col-xl-4 col-md-6">
+                    <div class="card card-hover h-100 position-relative">
+                        <div class="product-badge bg-warning">Oferta</div>
+                        <div class="position-relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1751107996147-9ed1eded1f9f?q=80&w=1398&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="Cámara Profesional" style="height: 250px; object-fit: cover;">
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h5 class="card-title">Cámara Profesional</h5>
+                                <div class="text-warning">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="card-text text-muted">Captura momentos únicos con calidad 4K, estabilización óptica y lentes intercambiables profesionales.</p>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="price-tag">$350.000</span>
+                                <small class="text-muted text-decoration-line-through">$500.000</small>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-modern flex-fill">
+                                    <i class="fas fa-cart-plus me-2"></i>Agregar al carrito
+                                </button>
+                                <button class="btn btn-outline-danger">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección de filtros y estadísticas -->
+            <div class="mt-5">
+                <div class="row g-4">
+                    <div class="col-md-8">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <h6 class="card-title mb-3">
+                                    <i class="fas fa-filter me-2"></i>Filtros de Productos
+                                </h6>
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <select class="form-select">
+                                            <option>Todas las categorías</option>
+                                            <option>Electrónicos</option>
+                                            <option>Computadoras</option>
+                                            <option>Móviles</option>
+                                            <option>Accesorios</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select class="form-select">
+                                            <option>Ordenar por</option>
+                                            <option>Precio: menor a mayor</option>
+                                            <option>Precio: mayor a menor</option>
+                                            <option>Más populares</option>
+                                            <option>Mejor calificados</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Buscar productos...">
+                                            <button class="btn btn-outline-secondary">
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body text-center">
+                                <h6 class="card-title mb-3">
+                                    <i class="fas fa-chart-pie me-2"></i>Estadísticas
+                                </h6>
+                                <div class="row text-center">
+                                    <div class="col-4">
+                                        <div class="text-primary fs-5 fw-bold">6</div>
+                                        <small class="text-muted">Productos</small>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="text-success fs-5 fw-bold">4.8</div>
+                                        <small class="text-muted">Rating</small>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="text-warning fs-5 fw-bold">25%</div>
+                                        <small class="text-muted">Descuento</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de características técnicas -->
+        <section class="mb-5">
+            <div class="text-center mb-5">
+                <h2 class="section-title">
+                    <i class="fas fa-code me-3"></i>
+                    Características Técnicas Implementadas
+                </h2>
+                <p class="text-muted">Detalles técnicos de las soluciones desarrolladas</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="text-center mb-3">
+                                <div class="bg-primary bg-opacity-10 rounded-circle p-3 d-inline-flex">
+                                    <i class="fas fa-mobile-alt text-primary fs-3"></i>
+                                </div>
+                            </div>
+                            <h5 class="card-title text-center">Responsive Design</h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Breakpoints Bootstrap 5</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Mobile-first approach</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Flexbox y Grid system</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Componentes adaptativos</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="text-center mb-3">
+                                <div class="bg-success bg-opacity-10 rounded-circle p-3 d-inline-flex">
+                                    <i class="fas fa-paint-brush text-success fs-3"></i>
+                                </div>
+                            </div>
+                            <h5 class="card-title text-center">UI/UX Moderno</h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Glassmorphism effects</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Gradient backgrounds</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Smooth animations</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Hover interactions</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="text-center mb-3">
+                                <div class="bg-warning bg-opacity-10 rounded-circle p-3 d-inline-flex">
+                                    <i class="fas fa-shield-alt text-warning fs-3"></i>
+                                </div>
+                            </div>
+                            <h5 class="card-title text-center">Validación Robusta</h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>HTML5 validation</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Bootstrap feedback</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Custom error messages</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Real-time validation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer moderno -->
+    <footer class="modern-gradient mt-5 pt-5 pb-3">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <h5 class="text-white mb-3">
+                        <i class="fas fa-code me-2"></i>Bootstrap 2025
+                    </h5>
+                    <p class="text-white-50">Soluciones modernas y profesionales con las últimas tendencias en desarrollo web.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-white-50 fs-5"><i class="fab fa-github"></i></a>
+                        <a href="#" class="text-white-50 fs-5"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-white-50 fs-5"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h6 class="text-white mb-3">Ejercicios</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#ejercicio1" class="text-white-50 text-decoration-none">Formulario de Contacto</a></li>
+                        <li><a href="#ejercicio2" class="text-white-50 text-decoration-none">Layout Responsivo</a></li>
+                        <li><a href="#ejercicio3" class="text-white-50 text-decoration-none">Catálogo de Productos</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h6 class="text-white mb-3">Tecnologías</h6>
+                    <div class="d-flex flex-wrap gap-2">
+                        <span class="badge bg-light text-dark">Bootstrap 5.3</span>
+                        <span class="badge bg-light text-dark">HTML5</span>
+                        <span class="badge bg-light text-dark">CSS3</span>
+                        <span class="badge bg-light text-dark">JavaScript</span>
+                        <span class="badge bg-light text-dark">Font Awesome</span>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4 border-white-50">
+            <div class="text-center text-white-50">
+                <p class="mb-0">&copy; Practica de Bootstrap desarrollado con ❤️ para C20 Raices Digitales.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast de notificaciones -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <i class="fas fa-check-circle text-success me-2"></i>
+                <strong class="me-auto">Éxito</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body">
+                Formulario enviado correctamente.
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de vista rápida de productos -->
+    <div class="modal fade" id="quickViewModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title">Vista Rápida del Producto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop" class="img-fluid rounded">
+                        </div>
+                        <div class="col-md-6">
+                            <h4>Auriculares Premium</h4>
+                            <div class="text-warning mb-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span class="text-muted ms-1">(127 reseñas)</span>
+                            </div>
+                            <p class="text-muted">Sonido de alta calidad con cancelación de ruido activa. Perfectos para profesionales y amantes de la música.</p>
+                            <div class="mb-3">
+                                <span class="fs-3 fw-bold text-primary">$70.000</span>
+                                <span class="text-muted text-decoration-line-through ms-2">$150.000</span>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-modern flex-fill">
+                                    <i class="fas fa-cart-plus me-2"></i>Agregar al carrito
+                                </button>
+                                <button class="btn btn-outline-danger">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
