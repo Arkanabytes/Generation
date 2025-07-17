@@ -176,3 +176,62 @@ console.log("Frutas modificadas: ", frutas);
  
 // FOR para recorre elementos
 console.log("Recorriendo Frutas")
+
+
+/ MAP
+ 
+const tecnoMayus = tecnologias.map(tech => tech.toLocaleUpperCase());
+console.log("Tecnologia en Mayus", tecnoMayus)
+ 
+/*
+¿Qué hace este código?
+Convierte todos los elementos del array tecnologias a mayúsculas, y los guarda en una nueva variable llamada tecnoMayus.
+ 
+A. tecnologias
+- Es un array (lista) que contiene nombres de tecnologías. Ejemplo:
+- const tecnologias = ["html", "css", "javascript"];
+ 
+B. .map()
+- Es un método de los arrays que sirve para recorrer cada elemento y devolver un nuevo array con los resultados. No modifica el original.
+ 
+C. tech => tech.toLocaleUpperCase()
+- Esta es una función flecha (te explico abajo qué es). En este caso, por cada tech (elemento del array), se aplica el método:
+- toLocaleUpperCase(): convierte el texto a mayúsculas, teniendo en cuenta configuraciones locales (como acentos o ñ).
+ 
+Ejemplo:
+"html".toLocaleUpperCase(); // "HTML"
+ 
+Resultado en Resumen:
+Si tienes una lista en minusculas
+const tecnologias = ["html", "css", "javascript"];
+ 
+El resultado será:
+["HTML", "CSS", "JAVASCRIPT"]
+ 
+*/
+ 
+/// IMPORTANTE
+// ¿Qué significa const?
+// const define una variable constante, lo que no significa que su contenido no pueda cambiar, sino que no puedes reasignarla (no puedes darle otro valor por completo).
+ 
+// let — variable mutable (puede cambiar)
+// let nombre = "Ana";
+// nombre = "Carlos"; //Esto es válido
+// const — variable no reasignable
+// const edad = 30;
+// edad = 35; // Error: no puedes reasignar
+ 
+// Pero ojo: con arrays y objetos...
+// Aunque uses const, puedes modificar el contenido interno de arrays y objetos:
+//
+// const tecnologias = ["html", "css"];
+// tecnologias.push("js"); // Esto sí se puede
+// console.log(tecnologias); // ["html", "css", "js"]
+// Lo que no puedes hacer es esto:
+//
+// tecnologias = ["react", "vue"]; // Error
+ 
+// Entonces, ¿es correcto llamarla "variable"?
+// Sí, es correcto.
+// 🔹 Técnicamente, const, let y var declaran variables.
+// 🔹 El término "constante" se refiere a la restricción de reasignación, no a su naturaleza como variable.
