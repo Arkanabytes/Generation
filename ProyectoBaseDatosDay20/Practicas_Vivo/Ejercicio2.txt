@@ -1,0 +1,5 @@
+---2.⁠ ⁠Filtrar por múltiples valores específicos con IN
+
+SELECT *
+FROM clientes
+WHERE ciudad IN (’NY’, ‘UK’);
