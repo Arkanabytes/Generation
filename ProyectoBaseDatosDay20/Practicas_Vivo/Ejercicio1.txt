@@ -1,0 +1,5 @@
+---1.⁠ ⁠D.evuelve clientes cuya edad esté entre 25 y 35 años (incluyendo 25 y ---35).
+  
+SELECT *
+FROM customers
+WHERE age BETWEEN 25 AND 35;
