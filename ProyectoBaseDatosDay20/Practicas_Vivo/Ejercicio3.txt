@@ -1,0 +1,3 @@
+---Combina múltiples condiciones con AND. Solo devuelve registros que cumplan AMBAS condiciones: edad mayor a 25 Y país igual a 'USA'.
+
+SELECT * FROM Customers WHERE age > 25 AND country = 'USA'
