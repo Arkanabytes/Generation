@@ -1,10 +1,9 @@
 -- =====================================================
 -- SISTEMA DE GESTIÓN ESCOLAR - COLEGIO SAN MARTÍN
--- Archivo: seed.sql
+-- Base de Datos: PostgreSQL (Neon.tech)
+-- Archivo: seed_postgres.sql
 -- Descripción: Datos de prueba para testing y desarrollo
 -- =====================================================
-
-USE colegio_san_martin;
 
 -- =====================================================
 -- DATOS BÁSICOS: Niveles educacionales
@@ -54,15 +53,16 @@ INSERT INTO cursos (nombre, nivel_id, capacidad_maxima, anio, activo) VALUES
 -- DOCENTES
 -- =====================================================
 INSERT INTO docentes (rut, nombres, apellidos, especialidad, telefono, email, fecha_contratacion, estado) VALUES
-('12345678-9', 'María Elena', 'González Silva', 'Educación Básica', '+56912345001', 'maria.gonzalez@colegiosanmartin.cl', '2020-03-01', 'activo'),
-('23456789-0', 'Carlos Andrés', 'Rodríguez López', 'Matemáticas', '+56912345002', 'carlos.rodriguez@colegiosanmartin.cl', '2019-03-01', 'activo'),
-('34567890-1', 'Ana Sofía', 'Martínez Pérez', 'Lenguaje y Literatura', '+56912345003', 'ana.martinez@colegiosanmartin.cl', '2021-03-01', 'activo'),
-('45678901-2', 'Roberto', 'Fernández Castro', 'Ciencias Naturales', '+56912345004', 'roberto.fernandez@colegiosanmartin.cl', '2018-03-01', 'activo'),
-('56789012-3', 'Patricia', 'Morales Jiménez', 'Historia y Geografía', '+56912345005', 'patricia.morales@colegiosanmartin.cl', '2020-08-01', 'activo'),
-('67890123-4', 'Diego', 'Herrera Soto', 'Educación Física', '+56912345006', 'diego.herrera@colegiosanmartin.cl', '2019-08-01', 'activo'),
-('78901234-5', 'Carmen', 'Torres Valdés', 'Inglés', '+56912345007', 'carmen.torres@colegiosanmartin.cl', '2021-08-01', 'activo'),
-('89012345-6', 'Andrés', 'Silva Ramos', 'Artes Visuales', '+56912345008', 'andres.silva@colegiosanmartin.cl', '2022-03-01', 'activo'),
-('90123456-7', 'Claudia', 'Vega Pérez', 'Educación General', '+56912345009', 'claudia.vega@colegiosanmartin.cl', '2024-03-01', 'activo');
+('20.561.747-7', 'María Elena', 'González Silva', 'Educación Básica', '+56912345001', 'maria.gonzalez@colegiosanmartin.cl', '2020-03-01', 'activo'),
+('6.375.413-7', 'Carlos Andrés', 'Rodríguez López', 'Matemáticas', '+56912345002', 'carlos.rodriguez@colegiosanmartin.cl', '2019-03-01', 'activo'),
+('14.642.081-8', 'Ana Sofía', 'Martínez Pérez', 'Lenguaje y Literatura', '+56912345003', 'ana.martinez@colegiosanmartin.cl', '2021-03-01', 'activo'),
+('18.391.894-K', 'Roberto', 'Fernández Castro', 'Ciencias Naturales', '+56912345004', 'roberto.fernandez@colegiosanmartin.cl', '2018-03-01', 'activo'),
+('22.565.630-4', 'Patricia', 'Morales Jiménez', 'Historia y Geografía', '+56912345005', 'patricia.morales@colegiosanmartin.cl', '2020-08-01', 'activo'),
+('21.613.757-4', 'Diego', 'Herrera Soto', 'Educación Física', '+56912345006', 'diego.herrera@colegiosanmartin.cl', '2019-08-01', 'activo'),
+('19.368.266-9', 'Carmen', 'Torres Valdés', 'Inglés', '+56912345007', 'carmen.torres@colegiosanmartin.cl', '2021-08-01', 'activo'),
+('9.311.533-3', 'Andrés', 'Silva Ramos', 'Artes Visuales', '+56912345008', 'andres.silva@colegiosanmartin.cl', '2022-03-01', 'activo'),
+('10.784.952-1', 'Claudia', 'Vega Pérez', 'Educación General', '+56912345009', 'claudia.vega@colegiosanmartin.cl', '2024-03-01', 'activo');
+
 
 -- =====================================================
 -- ASIGNATURAS
@@ -84,29 +84,29 @@ INSERT INTO asignaturas (codigo, nombre, descripcion, horas_semanales, tipo, act
 -- =====================================================
 -- ESTUDIANTES
 -- =====================================================
-INSERT INTO estudiantes (rut, nombres, apellidos, fecha_nacimiento, direccion, telefono, email) VALUES
+INSERT INTO estudiantes (rut, nombres, apellidos, fecha_nacimiento, direccion, telefono, email) values
 -- Estudiantes básica
-('20123456-7', 'Sofía', 'Ramírez Torres', '2017-04-15', 'Av. Libertador 1234, Santiago', '+56987654001', 'sofia.ramirez@gmail.com'),
-('20234567-8', 'Mateo', 'González Muñoz', '2017-07-22', 'Los Aromos 567, Santiago', '+56987654002', 'mateo.gonzalez@gmail.com'),
-('20345678-9', 'Valentina', 'López Silva', '2016-01-10', 'San Martín 890, Santiago', '+56987654003', 'valentina.lopez@gmail.com'),
-('20456789-0', 'Diego', 'Martínez Rojas', '2016-09-05', 'Las Flores 432, Santiago', '+56987654004', 'diego.martinez@gmail.com'),
-('20567890-1', 'Isidora', 'Fernández Castro', '2015-12-18', 'Alameda 1567, Santiago', '+56987654005', 'isidora.fernandez@gmail.com'),
-('20678901-2', 'Benjamín', 'Morales López', '2014-03-27', 'Nueva Providencia 789, Santiago', '+56987654006', 'benjamin.morales@gmail.com'),
-('20789012-3', 'Emilia', 'Herrera Soto', '2014-08-14', 'Las Condes 1234, Santiago', '+56987654007', 'emilia.herrera@gmail.com'),
-('20890123-4', 'Joaquín', 'Torres Valdés', '2012-11-30', 'Ñuñoa 567, Santiago', '+56987654008', 'joaquin.torres@gmail.com'),
-('20901234-5', 'Antonella', 'Silva Ramos', '2012-06-17', 'Maipú 890, Santiago', '+56987654009', 'antonella.silva@gmail.com'),
-('21012345-6', 'Gabriel', 'Peña Díaz', '2010-02-28', 'Pudahuel 432, Santiago', '+56987654010', 'gabriel.pena@gmail.com'),
+('18.315.335-8', 'Sofía', 'Ramírez Torres', '2017-04-15', 'Av. Libertador 1234, Santiago', '+56987654001', 'sofia.ramirez@gmail.com'),
+('16.244.236-8', 'Mateo', 'González Muñoz', '2017-07-22', 'Los Aromos 567, Santiago', '+56987654002', 'mateo.gonzalez@gmail.com'),
+('2.358.806-4', 'Valentina', 'López Silva', '2016-01-10', 'San Martín 890, Santiago', '+56987654003', 'valentina.lopez@gmail.com'),
+('2.248.687-K', 'Diego', 'Martínez Rojas', '2016-09-05', 'Las Flores 432, Santiago', '+56987654004', 'diego.martinez@gmail.com'),
+('15.049.526-1', 'Isidora', 'Fernández Castro', '2015-12-18', 'Alameda 1567, Santiago', '+56987654005', 'isidora.fernandez@gmail.com'),
+('5.541.850-0', 'Benjamín', 'Morales López', '2014-03-27', 'Nueva Providencia 789, Santiago', '+56987654006', 'benjamin.morales@gmail.com'),
+('19.274.012-6', 'Emilia', 'Herrera Soto', '2014-08-14', 'Las Condes 1234, Santiago', '+56987654007', 'emilia.herrera@gmail.com'),
+('17.123.643-6', 'Joaquín', 'Torres Valdés', '2012-11-30', 'Ñuñoa 567, Santiago', '+56987654008', 'joaquin.torres@gmail.com'),
+('12.310.141-3', 'Antonella', 'Silva Ramos', '2012-06-17', 'Maipú 890, Santiago', '+56987654009', 'antonella.silva@gmail.com'),
+('19.024.817-8', 'Gabriel', 'Peña Díaz', '2010-02-28', 'Pudahuel 432, Santiago', '+56987654010', 'gabriel.pena@gmail.com'),
 -- Estudiantes media
-('19123456-7', 'Camila', 'Vásquez Torres', '2009-05-12', 'Las Rejas 1567, Santiago', '+56987654011', 'camila.vasquez@gmail.com'),
-('19234567-8', 'Nicolás', 'Sánchez Muñoz', '2009-10-08', 'La Florida 789, Santiago', '+56987654012', 'nicolas.sanchez@gmail.com'),
-('19345678-9', 'Francisca', 'Rojas Silva', '2008-01-25', 'San Joaquín 1234, Santiago', '+56987654013', 'francisca.rojas@gmail.com'),
-('19456789-0', 'Matías', 'Contreras López', '2008-07-14', 'Peñalolén 567, Santiago', '+56987654014', 'matias.contreras@gmail.com'),
-('19567890-1', 'Javiera', 'Espinoza Castro', '2007-12-03', 'La Cisterna 890, Santiago', '+56987654015', 'javiera.espinoza@gmail.com'),
-('19678901-2', 'Tomás', 'Guerrero Morales', '2007-04-19', 'Cerrillos 432, Santiago', '+56987654016', 'tomas.guerrero@gmail.com'),
-('19789012-3', 'Maite', 'Figueroa Herrera', '2006-09-07', 'Estación Central 1567, Santiago', '+56987654017', 'maite.figueroa@gmail.com'),
-('19890123-4', 'Ignacio', 'Campos Torres', '2006-11-23', 'Renca 789, Santiago', '+56987654018', 'ignacio.campos@gmail.com'),
-('19901234-5', 'Constanza', 'Aguilar Silva', '2005-03-16', 'Quinta Normal 1234, Santiago', '+56987654019', 'constanza.aguilar@gmail.com'),
-('19012345-6', 'Felipe', 'Navarro Peña', '2005-08-29', 'Independencia 567, Santiago', '+56987654020', 'felipe.navarro@gmail.com');
+('5.278.581-2', 'Camila', 'Vásquez Torres', '2009-05-12', 'Las Rejas 1567, Santiago', '+56987654011', 'camila.vasquez@gmail.com'),
+('27.412.265-K', 'Nicolás', 'Sánchez Muñoz', '2009-10-08', 'La Florida 789, Santiago', '+56987654012', 'nicolas.sanchez@gmail.com'),
+('17.637.944-8', 'Francisca', 'Rojas Silva', '2008-01-25', 'San Joaquín 1234, Santiago', '+56987654013', 'francisca.rojas@gmail.com'),
+('8.033.848-1', 'Matías', 'Contreras López', '2008-07-14', 'Peñalolén 567, Santiago', '+56987654014', 'matias.contreras@gmail.com'),
+('20.600.958-6', 'Javiera', 'Espinoza Castro', '2007-12-03', 'La Cisterna 890, Santiago', '+56987654015', 'javiera.espinoza@gmail.com'),
+('15.290.027-9', 'Tomás', 'Guerrero Morales', '2007-04-19', 'Cerrillos 432, Santiago', '+56987654016', 'tomas.guerrero@gmail.com'),
+('14.274.593-3', 'Maite', 'Figueroa Herrera', '2006-09-07', 'Estación Central 1567, Santiago', '+56987654017', 'maite.figueroa@gmail.com'),
+('11.659.482-K', 'Ignacio', 'Campos Torres', '2006-11-23', 'Renca 789, Santiago', '+56987654018', 'ignacio.campos@gmail.com'),
+('15.394.911-5', 'Constanza', 'Aguilar Silva', '2005-03-16', 'Quinta Normal 1234, Santiago', '+56987654019', 'constanza.aguilar@gmail.com'),
+('3.264.715-4', 'Felipe', 'Navarro Peña', '2005-08-29', 'Independencia 567, Santiago', '+56987654020', 'felipe.navarro@gmail.com');
 
 -- =====================================================
 -- MATRÍCULAS
@@ -147,15 +147,14 @@ INSERT INTO matriculas (estudiante_id, curso_id, fecha_matricula, estado, observ
 -- =====================================================
 INSERT INTO profesores_jefe (docente_id, curso_id, anio) VALUES
 (1, 1, 2024), -- María Elena - 1° Básico A
-(1, 2, 2024), -- María Elena - 2° Básico A  
-(2, 3, 2024), -- Carlos - 3° Básico A
-(3, 4, 2024), -- Ana - 6° Básico A
-(4, 5, 2024), -- Roberto - 8° Básico A
-(5, 6, 2024), -- Patricia - 1° Medio A
-(6, 7, 2024), -- Diego - 2° Medio A
-(7, 8, 2024), -- Carmen - 3° Medio A
-(8, 9, 2024), -- Andrés - 4° Medio A
-(9, 9, 2024); -- Claudia - 4° Medio A
+(2, 2, 2024), -- Carlos - 2° Básico A
+(3, 3, 2024), -- Ana - 3° Básico A
+(4, 4, 2024), -- Roberto - 6° Básico A
+(5, 5, 2024), -- Patricia - 8° Básico A
+(6, 6, 2024), -- Diego - 1° Medio A
+(7, 7, 2024), -- Carmen - 2° Medio A
+(8, 8, 2024), -- Andrés - 3° Medio A
+(9, 9, 2024); -- Claudia Vega - 4° Medio A
 
 -- =====================================================
 -- ASIGNACIONES DE DOCENTES (2024 - 2do Semestre)
@@ -172,8 +171,8 @@ INSERT INTO asignaciones_docentes (docente_id, asignatura_id, curso_id, periodo_
 (2, 2, 2, 4), -- Carlos - Matemática
 (4, 3, 2, 4), -- Roberto - Ciencias
 (6, 6, 2, 4), -- Diego - Ed. Física
--- 3° Básico A  
-(3, 1, 3, 4), -- Ana - Lenguaje
+-- 3° Básico A
+(3, 1, 3, 4), -- Ana - Lenguaje  
 (2, 2, 3, 4), -- Carlos - Matemática
 (4, 3, 3, 4), -- Roberto - Ciencias
 (5, 4, 3, 4), -- Patricia - Historia
@@ -378,7 +377,7 @@ INSERT INTO notas (evaluacion_id, estudiante_id, nota, observaciones) VALUES
 (23, 11, 6.2, 'Buen análisis de La Odisea'),
 (24, 11, 6.5, 'Ensayo bien estructurado y argumentado'),
 (25, 11, 5.8, 'Maneja números reales con algunas dificultades'),
-(26, 11, 6.0, 'Bona interpretación estadística');
+(26, 11, 6.0, 'Buena interpretación estadística');
 
 -- Notas para Nicolás Sánchez (estudiante_id = 12, 1° Medio A)
 INSERT INTO notas (evaluacion_id, estudiante_id, nota, observaciones) VALUES
@@ -386,10 +385,6 @@ INSERT INTO notas (evaluacion_id, estudiante_id, nota, observaciones) VALUES
 (24, 12, 5.3, 'Ensayo necesita más desarrollo'),
 (25, 12, 4.2, 'Grandes dificultades con números irracionales'),
 (26, 12, 4.8, 'Errores en interpretación de gráficos');
-
--- Notas para Francisca Rojas (estudiante_id = 13, 2° Medio A)
-INSERT INTO notas (evaluacion_id, estudiante_id, nota, observaciones) VALUES
--- (Aquí se pueden agregar más evaluaciones para 2° Medio si se crean)
 
 -- Notas para estudiantes de 3° Medio A (Filosofía e Inglés)
 INSERT INTO notas (evaluacion_id, estudiante_id, nota, observaciones) VALUES
@@ -430,6 +425,21 @@ INSERT INTO notas (evaluacion_id, estudiante_id, nota, observaciones) VALUES
 (34, 20, 4.7, 'Ensayo con argumentación débil');
 
 -- =====================================================
+-- ACTUALIZAR SECUENCIAS (ESPECÍFICO PARA POSTGRESQL)
+-- =====================================================
+
+-- Actualizar secuencias para evitar conflictos en futuros INSERT
+SELECT setval('estudiantes_id_seq', (SELECT MAX(id) FROM estudiantes));
+SELECT setval('docentes_id_seq', (SELECT MAX(id) FROM docentes));
+SELECT setval('cursos_id_seq', (SELECT MAX(id) FROM cursos));
+SELECT setval('asignaturas_id_seq', (SELECT MAX(id) FROM asignaturas));
+SELECT setval('matriculas_id_seq', (SELECT MAX(id) FROM matriculas));
+SELECT setval('profesores_jefe_id_seq', (SELECT MAX(id) FROM profesores_jefe));
+SELECT setval('asignaciones_docentes_id_seq', (SELECT MAX(id) FROM asignaciones_docentes));
+SELECT setval('evaluaciones_id_seq', (SELECT MAX(id) FROM evaluaciones));
+SELECT setval('notas_id_seq', (SELECT MAX(id) FROM notas));
+
+-- =====================================================
 -- COMENTARIOS FINALES Y VERIFICACIONES
 -- =====================================================
 
@@ -439,7 +449,7 @@ RESUMEN DE DATOS INSERTADOS:
 - 5 Períodos académicos (2023-2025)
 - 6 Tipos de evaluación
 - 9 Cursos (5 básica, 4 media)
-- 8 Docentes activos
+- 9 Docentes activos
 - 10 Asignaturas (8 obligatorias, 2 electivas)
 - 20 Estudiantes (10 básica, 10 media)
 - 20 Matrículas activas
@@ -455,13 +465,31 @@ ESTADO ACTUAL:
 - Hay evaluaciones y notas para testing de reportes
 - Datos distribuidos en diferentes rangos de notas (4.2 a 6.9)
 
+ADAPTACIONES PARA POSTGRESQL:
+✅ Uso de tipos de datos compatibles con PostgreSQL
+✅ Actualización de secuencias para evitar conflictos
+✅ Sintaxis de INSERT optimizada para PostgreSQL
+✅ Comentarios adaptados para PostgreSQL
+
 La base de datos está lista para:
 ✅ Generar todos los reportes solicitados
 ✅ Probar operaciones CRUD
 ✅ Realizar consultas avanzadas con JOINs
 ✅ Calcular promedios y estadísticas
 ✅ Identificar estudiantes en riesgo académico
+✅ Funcionar correctamente en Neon.tech
 */
 
 -- Verificar integridad de datos
-SELECT 'Verificación completada - Base de datos lista para uso' AS status;
+SELECT 'Verificación completada - Base de datos PostgreSQL lista para uso en Neon.tech' AS status;
+
+
+-- Limpiar tablas (opcional)
+TRUNCATE TABLE cursos RESTART IDENTITY CASCADE;
+TRUNCATE TABLE estudiantes RESTART IDENTITY CASCADE;
+TRUNCATE TABLE matriculas RESTART IDENTITY CASCADE;
+TRUNCATE TABLE profesores_jefe RESTART IDENTITY CASCADE;
+TRUNCATE TABLE asignaciones_docentes RESTART IDENTITY CASCADE;
+TRUNCATE TABLE evaluaciones RESTART IDENTITY CASCADE;
+TRUNCATE TABLE notas RESTART IDENTITY CASCADE;
+TRUNCATE TABLE docentes RESTART IDENTITY CASCADE;
