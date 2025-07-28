@@ -1,10 +1,9 @@
 -- =====================================================
 -- SISTEMA DE GESTIÓN ESCOLAR - COLEGIO SAN MARTÍN
--- Archivo: reportes.sql
--- Descripción: Todas las consultas de reportes solicitadas
+-- Archivo: reportes_postgres.sql
+-- Descripción: Todas las consultas de reportes para PostgreSQL
+-- Base de datos: Neon.tech PostgreSQL
 -- =====================================================
-
-USE colegio_san_martin;
 
 -- =====================================================
 -- REPORTES BÁSICOS
@@ -16,7 +15,7 @@ SELECT
     e.rut,
     CONCAT(e.nombres, ' ', e.apellidos) AS nombre_completo,
     e.fecha_nacimiento,
-    TIMESTAMPDIFF(YEAR, e.fecha_nacimiento, CURDATE()) AS edad,
+    EXTRACT(YEAR FROM AGE(e.fecha_nacimiento)) AS edad,
     e.telefono,
     e.email,
     m.fecha_matricula,
@@ -24,7 +23,7 @@ SELECT
 FROM estudiantes e
 JOIN matriculas m ON e.id = m.estudiante_id
 JOIN cursos c ON m.curso_id = c.id
-WHERE c.nombre = '4° Medio A'  -- Cambiar por el curso deseado ver tabla "CURSOS ACADÉMICOS"
+WHERE c.nombre = '4° Medio A'  -- Cambiar por el curso deseado
   AND c.anio = 2024
   AND m.estado = 'activo'
 ORDER BY e.apellidos, e.nombres;
@@ -136,7 +135,7 @@ JOIN asignaturas a ON ad.asignatura_id = a.id
 JOIN periodos_academicos pa ON ad.periodo_academico_id = pa.id
 WHERE pa.activo = TRUE
   AND m.estado = 'activo'
-GROUP BY e.id, a.id, c.nombre, a.nombre
+GROUP BY e.id, e.rut, estudiante, c.nombre, a.id, a.nombre
 HAVING AVG(n.nota) < 4.0  -- Cambiar por nota diferente
 ORDER BY promedio ASC, e.apellidos;
 
@@ -147,7 +146,7 @@ ORDER BY promedio ASC, e.apellidos;
 -- 7. RANKING DE ESTUDIANTES POR CURSO
 -- Mostrar los estudiantes de un curso ordenados por su promedio general (mayor a menor)
 SELECT 
-    @rownum := @rownum + 1 AS ranking,
+    ROW_NUMBER() OVER (ORDER BY AVG(n.nota) DESC) AS ranking,
     e.rut,
     CONCAT(e.nombres, ' ', e.apellidos) AS estudiante,
     COUNT(n.nota) AS total_notas,
@@ -158,8 +157,7 @@ SELECT
         WHEN AVG(n.nota) >= 4.0 THEN 'SUFICIENTE'
         ELSE 'INSUFICIENTE'
     END AS nivel_rendimiento
-FROM (SELECT @rownum := 0) r,
-     estudiantes e
+FROM estudiantes e
 JOIN matriculas m ON e.id = m.estudiante_id
 JOIN cursos c ON m.curso_id = c.id
 JOIN notas n ON e.id = n.estudiante_id
@@ -169,7 +167,7 @@ JOIN periodos_academicos pa ON ad.periodo_academico_id = pa.id
 WHERE c.nombre = '4° Medio A'  -- Cambiar por el curso deseado
   AND pa.activo = TRUE
   AND m.estado = 'activo'
-GROUP BY e.id
+GROUP BY e.id, e.rut, estudiante
 ORDER BY promedio_general DESC;
 
 -- 8. ESTADÍSTICAS POR ASIGNATURA
@@ -202,7 +200,7 @@ SELECT
     d.especialidad,
     COUNT(DISTINCT ad.curso_id) AS total_cursos,
     COUNT(DISTINCT ad.asignatura_id) AS total_asignaturas,
-    GROUP_CONCAT(DISTINCT c.nombre ORDER BY c.nombre SEPARATOR ', ') AS cursos_asignados,
+    STRING_AGG(DISTINCT c.nombre, ', ' ORDER BY c.nombre) AS cursos_asignados,
     SUM(a.horas_semanales) AS total_horas_semanales
 FROM docentes d
 JOIN asignaciones_docentes ad ON d.id = ad.docente_id
@@ -211,7 +209,7 @@ JOIN asignaturas a ON ad.asignatura_id = a.id
 JOIN periodos_academicos pa ON ad.periodo_academico_id = pa.id
 WHERE pa.activo = TRUE
   AND d.estado = 'activo'
-GROUP BY d.id
+GROUP BY d.id, d.rut, docente, d.especialidad
 ORDER BY total_cursos DESC, total_horas_semanales DESC;
 
 -- =====================================================
@@ -233,11 +231,13 @@ JOIN matriculas m ON e.id = m.estudiante_id
 JOIN cursos c ON m.curso_id = c.id
 JOIN niveles_educacionales n ON c.nivel_id = n.id
 LEFT JOIN notas no ON e.id = no.estudiante_id
+LEFT JOIN evaluaciones ev ON no.evaluacion_id = ev.id
+LEFT JOIN asignaciones_docentes ad ON ev.asignacion_docente_id = ad.id
+LEFT JOIN periodos_academicos pa ON ad.periodo_academico_id = pa.id AND pa.activo = TRUE
 WHERE m.estado = 'activo'
   AND c.anio = 2024
 GROUP BY e.id, e.rut, estudiante, c.nombre, n.nombre, m.fecha_matricula
 ORDER BY c.nombre, estudiante;
-
 
 -- 11. CURSOS SIN PROFESOR JEFE
 -- Listar cursos que no tienen profesor jefe asignado
@@ -255,9 +255,8 @@ LEFT JOIN profesores_jefe pj ON c.id = pj.curso_id AND pj.anio = c.anio
 LEFT JOIN docentes d ON pj.docente_id = d.id
 LEFT JOIN matriculas m ON c.id = m.curso_id AND m.estado = 'activo'
 WHERE c.activo = TRUE
-GROUP BY c.id, d.id
+GROUP BY c.id, c.nombre, n.nombre, c.capacidad_maxima, c.anio, d.nombres, d.apellidos
 ORDER BY n.nombre, c.nombre;
-
 
 -- 12. RESUMEN POR NIVEL EDUCACIONAL
 -- Mostrar cantidad de estudiantes, docentes y asignaturas por nivel (básica/media)
@@ -290,21 +289,19 @@ WHERE c.anio = 2024
 GROUP BY n.id, n.nombre
 ORDER BY n.nombre;
 
-
 -- =====================================================
 -- CONSULTAS ADICIONALES ÚTILES
 -- =====================================================
 
 -- REPORTE EXTRA 1: ESTUDIANTES CON MEJOR RENDIMIENTO GENERAL (TOP 10)
 SELECT 
-    @rownum := @rownum + 1 AS posicion,
+    ROW_NUMBER() OVER (ORDER BY AVG(n.nota) DESC) AS posicion,
     e.rut,
     CONCAT(e.nombres, ' ', e.apellidos) AS estudiante,
     c.nombre AS curso,
     COUNT(n.nota) AS total_evaluaciones,
     ROUND(AVG(n.nota), 1) AS promedio_general
-FROM (SELECT @rownum := 0) r,
-     estudiantes e
+FROM estudiantes e
 JOIN matriculas m ON e.id = m.estudiante_id
 JOIN cursos c ON m.curso_id = c.id
 JOIN notas n ON e.id = n.estudiante_id
@@ -318,14 +315,8 @@ HAVING COUNT(n.nota) >= 3
 ORDER BY promedio_general DESC
 LIMIT 10;
 
-
 -- REPORTE EXTRA 2: DISTRIBUCIÓN DE NOTAS POR RANGO
-
-SELECT 
-    rango_notas,
-    cantidad_notas,
-    ROUND(cantidad_notas * 100.0 / total_notas, 1) AS porcentaje
-FROM (
+WITH distribucion AS (
     SELECT 
         CASE
             WHEN n.nota >= 6.0 THEN 'Excelente (6.0-7.0)'
@@ -340,21 +331,30 @@ FROM (
     JOIN periodos_academicos pa ON ad.periodo_academico_id = pa.id
     WHERE pa.activo = TRUE
     GROUP BY rango_notas
-) AS distribucion
-CROSS JOIN (
+),
+total AS (
     SELECT COUNT(*) AS total_notas
     FROM notas n2
     JOIN evaluaciones ev2 ON n2.evaluacion_id = ev2.id
     JOIN asignaciones_docentes ad2 ON ev2.asignacion_docente_id = ad2.id
     JOIN periodos_academicos pa2 ON ad2.periodo_academico_id = pa2.id
     WHERE pa2.activo = TRUE
-) AS total
-ORDER BY rango_notas;
-
-
+)
+SELECT 
+    d.rango_notas,
+    d.cantidad_notas,
+    ROUND(d.cantidad_notas * 100.0 / t.total_notas, 1) AS porcentaje
+FROM distribucion d
+CROSS JOIN total t
+ORDER BY 
+    CASE d.rango_notas
+        WHEN 'Excelente (6.0-7.0)' THEN 1
+        WHEN 'Bueno (5.0-5.9)' THEN 2
+        WHEN 'Suficiente (4.0-4.9)' THEN 3
+        ELSE 4
+    END;
 
 -- REPORTE EXTRA 3: DOCENTES CON SUS ASIGNATURAS Y CARGA ACADÉMICA
-
 SELECT 
     d.rut,
     CONCAT(d.nombres, ' ', d.apellidos) AS docente,
@@ -362,9 +362,9 @@ SELECT
     COUNT(DISTINCT ad.curso_id) AS cursos_asignados,
     COUNT(DISTINCT ad.asignatura_id) AS asignaturas_diferentes,
     SUM(a.horas_semanales) AS total_horas_semanales,
-    GROUP_CONCAT(DISTINCT CONCAT(a.nombre, ' (', c.nombre, ')') ORDER BY a.nombre SEPARATOR '; ') AS detalle_asignaciones,
+    STRING_AGG(DISTINCT CONCAT(a.nombre, ' (', c.nombre, ')'), '; ') AS detalle_asignaciones,
     CASE 
-        WHEN EXISTS (SELECT 1 FROM profesores_jefe pj WHERE pj.docente_id = d.id AND pj.anio = YEAR(CURDATE())) 
+        WHEN EXISTS (SELECT 1 FROM profesores_jefe pj WHERE pj.docente_id = d.id AND pj.anio = EXTRACT(YEAR FROM CURRENT_DATE)) 
         THEN 'SÍ' 
         ELSE 'NO' 
     END AS es_profesor_jefe
@@ -375,39 +375,147 @@ JOIN cursos c ON ad.curso_id = c.id
 JOIN periodos_academicos pa ON ad.periodo_academico_id = pa.id
 WHERE pa.activo = TRUE
   AND d.estado = 'activo'
-GROUP BY d.id
+GROUP BY d.id, d.rut, docente, d.especialidad
 ORDER BY total_horas_semanales DESC;
 
 -- =====================================================
--- INSTRUCCIONES DE USO
+-- CONSULTAS ESPECÍFICAS PARA ANÁLISIS AVANZADO
+-- =====================================================
+
+-- ANÁLISIS 1: Rendimiento académico por nivel educacional
+SELECT 
+    n.nombre AS nivel,
+    COUNT(DISTINCT e.id) AS total_estudiantes,
+    COUNT(no.id) AS total_notas,
+    ROUND(AVG(no.nota), 2) AS promedio_general,
+    MIN(no.nota) AS nota_minima,
+    MAX(no.nota) AS nota_maxima,
+    ROUND(STDDEV(no.nota), 2) AS desviacion_estandar,
+    COUNT(CASE WHEN no.nota < 4.0 THEN 1 END) AS notas_rojas,
+    ROUND(COUNT(CASE WHEN no.nota < 4.0 THEN 1 END) * 100.0 / COUNT(no.id), 1) AS porcentaje_reprobacion
+FROM niveles_educacionales n
+JOIN cursos c ON n.id = c.nivel_id
+JOIN matriculas m ON c.id = m.curso_id
+JOIN estudiantes e ON m.estudiante_id = e.id
+JOIN notas no ON e.id = no.estudiante_id
+JOIN evaluaciones ev ON no.evaluacion_id = ev.id
+JOIN asignaciones_docentes ad ON ev.asignacion_docente_id = ad.id
+JOIN periodos_academicos pa ON ad.periodo_academico_id = pa.id
+WHERE pa.activo = TRUE
+  AND m.estado = 'activo'
+GROUP BY n.id, n.nombre
+ORDER BY n.nombre;
+
+-- ANÁLISIS 2: Evolución de notas por estudiante (comparar evaluaciones)
+WITH notas_estudiante AS (
+    SELECT 
+        e.id,
+        CONCAT(e.nombres, ' ', e.apellidos) as estudiante,
+        c.nombre as curso,
+        a.nombre as asignatura,
+        AVG(n.nota) as promedio_asignatura,
+        COUNT(n.nota) as total_evaluaciones
+    FROM estudiantes e
+    JOIN matriculas m ON e.id = m.estudiante_id
+    JOIN cursos c ON m.curso_id = c.id
+    JOIN notas n ON e.id = n.estudiante_id
+    JOIN evaluaciones ev ON n.evaluacion_id = ev.id
+    JOIN asignaciones_docentes ad ON ev.asignacion_docente_id = ad.id
+    JOIN asignaturas a ON ad.asignatura_id = a.id
+    JOIN periodos_academicos pa ON ad.periodo_academico_id = pa.id
+    WHERE pa.activo = TRUE
+      AND m.estado = 'activo'
+    GROUP BY e.id, estudiante, c.nombre, a.id, a.nombre
+)
+SELECT 
+    estudiante,
+    curso,
+    COUNT(asignatura) as asignaturas_cursadas,
+    ROUND(AVG(promedio_asignatura), 1) as promedio_general,
+    MIN(promedio_asignatura) as asignatura_mas_baja,
+    MAX(promedio_asignatura) as asignatura_mas_alta,
+    SUM(total_evaluaciones) as total_evaluaciones_rendidas,
+    COUNT(CASE WHEN promedio_asignatura < 4.0 THEN 1 END) as asignaturas_reprobadas
+FROM notas_estudiante
+GROUP BY id, estudiante, curso
+ORDER BY promedio_general DESC;
+
+-- =====================================================
+-- FUNCIONES ÚTILES PARA CÁLCULOS
+-- =====================================================
+
+-- Función para calcular promedio ponderado (si se implementa ponderación)
+/*
+CREATE OR REPLACE FUNCTION calcular_promedio_ponderado(
+    p_estudiante_id INTEGER,
+    p_asignatura_id INTEGER,
+    p_periodo_id INTEGER
+) 
+RETURNS DECIMAL(3,1) AS $$
+DECLARE
+    promedio DECIMAL(3,1);
+BEGIN
+    SELECT 
+        ROUND(
+            SUM(n.nota * (ev.ponderacion / 100.0)) / 
+            SUM(ev.ponderacion / 100.0), 1
+        )
+    INTO promedio
+    FROM notas n
+    JOIN evaluaciones ev ON n.evaluacion_id = ev.id
+    JOIN asignaciones_docentes ad ON ev.asignacion_docente_id = ad.id
+    WHERE n.estudiante_id = p_estudiante_id 
+      AND ad.asignatura_id = p_asignatura_id
+      AND ad.periodo_academico_id = p_periodo_id;
+    
+    RETURN COALESCE(promedio, 0);
+END;
+$$ LANGUAGE plpgsql;
+*/
+
+-- =====================================================
+-- INSTRUCCIONES DE USO PARA POSTGRESQL
 -- =====================================================
 
 /*
-INSTRUCCIONES PARA USAR LOS REPORTES:
+PRINCIPALES DIFERENCIAS CON MYSQL:
 
-1. REPORTES PARAMETRIZABLES:
-   - Cambiar los valores en WHERE para consultar datos específicos
-   - Ejemplos de parámetros a modificar:
-     * RUT de estudiante: WHERE e.rut = 'RUT_DESEADO'
-     * Nombre de curso: WHERE c.nombre = 'CURSO_DESEADO'
-     * Año académico: WHERE pa.anio = AÑO_DESEADO
-     * Semestre: WHERE pa.semestre = SEMESTRE_DESEADO
+1. FUNCIONES DE FECHA:
+   - MySQL: TIMESTAMPDIFF(YEAR, fecha, CURDATE())
+   - PostgreSQL: EXTRACT(YEAR FROM AGE(fecha))
 
-2. REPORTES DINÁMICOS:
-   - Los reportes usan pa.activo = TRUE para mostrar datos del período actual
-   - Para consultar períodos pasados, cambiar por pa.anio = XXXX AND pa.semestre = X
+2. CONCATENACIÓN:
+   - MySQL: CONCAT()
+   - PostgreSQL: CONCAT() o || (ambos funcionan)
 
-3. PERSONALIZACIÓN:
-   - Agregar campos adicionales en SELECT según necesidades
-   - Modificar ORDER BY para cambiar el ordenamiento
-   - Usar LIMIT para restringir cantidad de resultados
+3. AGGREGACIÓN DE CADENAS:
+   - MySQL: GROUP_CONCAT()
+   - PostgreSQL: STRING_AGG()
 
-4. OPTIMIZACIÓN:
-   - Los índices creados en schema.sql optimizan estas consultas
-   - Para grandes volúmenes de datos, considerar agregar más índices específicos
+4. VARIABLES DE SESIÓN (RANKING):
+   - MySQL: @rownum variables
+   - PostgreSQL: ROW_NUMBER() OVER()
 
-EJEMPLOS DE EJECUCIÓN:
-- Para ver notas de un estudiante específico: ejecutar reporte #4 con el RUT deseado
-- Para ranking de un curso: ejecutar reporte #7 con el nombre del curso
-- Para estadísticas generales: ejecutar reportes #8 y #12 sin modificaciones
+5. LÍMITES:
+   - MySQL: LIMIT
+   - PostgreSQL: LIMIT (igual)
+
+6. TIPOS DE DATOS:
+   - MySQL: YEAR
+   - PostgreSQL: INTEGER para años
+
+INSTRUCCIONES PARA USAR EN NEON.TECH:
+
+1. Conectarse a la base de datos de Neon
+2. Ejecutar las consultas una por una
+3. Para consultas parametrizadas, cambiar los valores WHERE según necesidad
+4. Las consultas están optimizadas para PostgreSQL 14+
+
+EJEMPLOS DE PERSONALIZACIÓN:
+- Cambiar curso: WHERE c.nombre = 'TU_CURSO_AQUI'
+- Cambiar estudiante: WHERE e.rut = 'RUT_ESTUDIANTE'
+- Cambiar período: WHERE pa.anio = 2024 AND pa.semestre = 1
+- Filtrar por estado: WHERE m.estado = 'activo'
+
+Para testing, todas las consultas usan pa.activo = TRUE para mostrar datos del período actual.
 */
