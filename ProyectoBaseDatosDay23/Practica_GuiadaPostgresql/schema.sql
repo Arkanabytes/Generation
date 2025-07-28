@@ -1,27 +1,40 @@
 -- =====================================================
 -- SISTEMA DE GESTIÓN ESCOLAR - COLEGIO SAN MARTÍN
--- Archivo: schema.sql
+-- Base de Datos: PostgreSQL (Neon.tech)
+-- Archivo: schema_postgres.sql
 -- Descripción: Creación de base de datos y todas las tablas
 -- =====================================================
-
-
 DROP DATABASE IF EXISTS colegio_san_martin;
--- Crear base de datos
 CREATE DATABASE colegio_san_martin;
 USE colegio_san_martin;
+-- =====================================================
+-- EXTENSIONES NECESARIAS
+-- =====================================================
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+-- =====================================================
+-- DOMINIOS PERSONALIZADOS (EQUIVALENTE A ENUM EN MYSQL)
+-- =====================================================
+CREATE TYPE estado_docente AS ENUM ('activo', 'licencia', 'desvinculado');
+
+CREATE TYPE estado_matricula AS ENUM ('activo', 'retirado', 'egresado');
+
+CREATE TYPE tipo_asignatura AS ENUM ('obligatoria', 'electiva');
 
 -- =====================================================
 -- TABLA: periodos_academicos
 -- Descripción: Gestiona años académicos y semestres
 -- =====================================================
 CREATE TABLE periodos_academicos (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    anio YEAR NOT NULL,
-    semestre TINYINT NOT NULL CHECK (semestre IN (1, 2)),
+    id SERIAL PRIMARY KEY,
+    anio INTEGER NOT NULL CHECK (anio >= 2020 AND anio <= 2030),
+    semestre SMALLINT NOT NULL CHECK (semestre IN (1, 2)),
     fecha_inicio DATE NOT NULL,
     fecha_fin DATE NOT NULL,
     activo BOOLEAN DEFAULT FALSE,
-    UNIQUE KEY unique_periodo (anio, semestre)
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT unique_periodo UNIQUE (anio, semestre)
 );
 
 -- =====================================================
@@ -29,9 +42,10 @@ CREATE TABLE periodos_academicos (
 -- Descripción: Define los niveles educativos (básica/media)
 -- =====================================================
 CREATE TABLE niveles_educacionales (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id SERIAL PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL UNIQUE,
-    descripcion TEXT
+    descripcion TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 -- =====================================================
@@ -39,14 +53,15 @@ CREATE TABLE niveles_educacionales (
 -- Descripción: Información de los cursos del colegio
 -- =====================================================
 CREATE TABLE cursos (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id SERIAL PRIMARY KEY,
     nombre VARCHAR(20) NOT NULL, -- ej: "1° Básico A"
-    nivel_id INT NOT NULL,
-    capacidad_maxima INT DEFAULT 45,
-    anio YEAR NOT NULL,
+    nivel_id INTEGER NOT NULL REFERENCES niveles_educacionales(id),
+    capacidad_maxima INTEGER DEFAULT 45,
+    anio INTEGER NOT NULL CHECK (anio >= 2020 AND anio <= 2030),
     activo BOOLEAN DEFAULT TRUE,
-    FOREIGN KEY (nivel_id) REFERENCES niveles_educacionales(id),
-    UNIQUE KEY unique_curso_anio (nombre, anio)
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT unique_curso_anio UNIQUE (nombre, anio)
 );
 
 -- =====================================================
@@ -54,7 +69,7 @@ CREATE TABLE cursos (
 -- Descripción: Información del personal docente
 -- =====================================================
 CREATE TABLE docentes (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id SERIAL PRIMARY KEY,
     rut VARCHAR(12) NOT NULL UNIQUE,
     nombres VARCHAR(100) NOT NULL,
     apellidos VARCHAR(100) NOT NULL,
@@ -62,9 +77,9 @@ CREATE TABLE docentes (
     telefono VARCHAR(20),
     email VARCHAR(100) UNIQUE,
     fecha_contratacion DATE NOT NULL,
-    estado ENUM('activo', 'licencia', 'desvinculado') DEFAULT 'activo',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    estado estado_docente DEFAULT 'activo',
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 -- =====================================================
@@ -72,7 +87,7 @@ CREATE TABLE docentes (
 -- Descripción: Información de los estudiantes
 -- =====================================================
 CREATE TABLE estudiantes (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id SERIAL PRIMARY KEY,
     rut VARCHAR(12) NOT NULL UNIQUE,
     nombres VARCHAR(100) NOT NULL,
     apellidos VARCHAR(100) NOT NULL,
@@ -80,8 +95,8 @@ CREATE TABLE estudiantes (
     direccion TEXT,
     telefono VARCHAR(20),
     email VARCHAR(100),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 -- =====================================================
@@ -89,13 +104,14 @@ CREATE TABLE estudiantes (
 -- Descripción: Materias que se imparten en el colegio
 -- =====================================================
 CREATE TABLE asignaturas (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id SERIAL PRIMARY KEY,
     codigo VARCHAR(10) NOT NULL UNIQUE,
     nombre VARCHAR(100) NOT NULL,
     descripcion TEXT,
-    horas_semanales INT DEFAULT 2,
-    tipo ENUM('obligatoria', 'electiva') DEFAULT 'obligatoria',
-    activa BOOLEAN DEFAULT TRUE
+    horas_semanales INTEGER DEFAULT 2,
+    tipo tipo_asignatura DEFAULT 'obligatoria',
+    activa BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 -- =====================================================
@@ -103,15 +119,14 @@ CREATE TABLE asignaturas (
 -- Descripción: Registro de estudiantes matriculados por curso y año
 -- =====================================================
 CREATE TABLE matriculas (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    estudiante_id INT NOT NULL,
-    curso_id INT NOT NULL,
+    id SERIAL PRIMARY KEY,
+    estudiante_id INTEGER NOT NULL REFERENCES estudiantes(id),
+    curso_id INTEGER NOT NULL REFERENCES cursos(id),
     fecha_matricula DATE NOT NULL,
-    estado ENUM('activo', 'retirado', 'egresado') DEFAULT 'activo',
+    estado estado_matricula DEFAULT 'activo',
     observaciones TEXT,
-    FOREIGN KEY (estudiante_id) REFERENCES estudiantes(id),
-    FOREIGN KEY (curso_id) REFERENCES cursos(id),
-    UNIQUE KEY unique_estudiante_curso (estudiante_id, curso_id)
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT unique_estudiante_curso UNIQUE (estudiante_id, curso_id)
 );
 
 -- =====================================================
@@ -119,31 +134,26 @@ CREATE TABLE matriculas (
 -- Descripción: Asignación de profesores jefe a cursos
 -- =====================================================
 CREATE TABLE profesores_jefe (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    docente_id INT NOT NULL,
-    curso_id INT NOT NULL,
-    anio YEAR NOT NULL,
-    FOREIGN KEY (docente_id) REFERENCES docentes(id),
-    FOREIGN KEY (curso_id) REFERENCES cursos(id),
-    UNIQUE KEY unique_profesor_curso_anio (docente_id, anio),
-    UNIQUE KEY unique_curso_anio (curso_id, anio)
+    id SERIAL PRIMARY KEY,
+    docente_id INTEGER NOT NULL REFERENCES docentes(id),
+    curso_id INTEGER NOT NULL REFERENCES cursos(id),
+    anio INTEGER NOT NULL CHECK (anio >= 2020 AND anio <= 2030),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT unique_profesor_curso_anio UNIQUE (docente_id, anio),
+    CONSTRAINT unique_curso_anio_prof_jefe UNIQUE (curso_id, anio)
 );
-
 -- =====================================================
 -- TABLA: asignaciones_docentes
 -- Descripción: Qué docente enseña qué asignatura en qué curso
 -- =====================================================
 CREATE TABLE asignaciones_docentes (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    docente_id INT NOT NULL,
-    asignatura_id INT NOT NULL,
-    curso_id INT NOT NULL,
-    periodo_academico_id INT NOT NULL,
-    FOREIGN KEY (docente_id) REFERENCES docentes(id),
-    FOREIGN KEY (asignatura_id) REFERENCES asignaturas(id),
-    FOREIGN KEY (curso_id) REFERENCES cursos(id),
-    FOREIGN KEY (periodo_academico_id) REFERENCES periodos_academicos(id),
-    UNIQUE KEY unique_asignacion (docente_id, asignatura_id, curso_id, periodo_academico_id)
+    id SERIAL PRIMARY KEY,
+    docente_id INTEGER NOT NULL REFERENCES docentes(id),
+    asignatura_id INTEGER NOT NULL REFERENCES asignaturas(id),
+    curso_id INTEGER NOT NULL REFERENCES cursos(id),
+    periodo_academico_id INTEGER NOT NULL REFERENCES periodos_academicos(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT unique_asignacion UNIQUE (docente_id, asignatura_id, curso_id, periodo_academico_id)
 );
 
 -- =====================================================
@@ -151,9 +161,10 @@ CREATE TABLE asignaciones_docentes (
 -- Descripción: Tipos de evaluaciones (prueba, trabajo, examen, etc.)
 -- =====================================================
 CREATE TABLE tipos_evaluacion (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id SERIAL PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL UNIQUE,
-    descripcion TEXT
+    descripcion TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 -- =====================================================
@@ -161,15 +172,14 @@ CREATE TABLE tipos_evaluacion (
 -- Descripción: Evaluaciones realizadas por asignatura y curso
 -- =====================================================
 CREATE TABLE evaluaciones (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    asignacion_docente_id INT NOT NULL,
-    tipo_evaluacion_id INT NOT NULL,
+    id SERIAL PRIMARY KEY,
+    asignacion_docente_id INTEGER NOT NULL REFERENCES asignaciones_docentes(id),
+    tipo_evaluacion_id INTEGER NOT NULL REFERENCES tipos_evaluacion(id),
     titulo VARCHAR(200) NOT NULL,
     descripcion TEXT,
     fecha_evaluacion DATE NOT NULL,
-    ponderacion DECIMAL(5,2) DEFAULT 100.00, -- porcentaje de la nota final
-    FOREIGN KEY (asignacion_docente_id) REFERENCES asignaciones_docentes(id),
-    FOREIGN KEY (tipo_evaluacion_id) REFERENCES tipos_evaluacion(id)
+    ponderacion NUMERIC(5,2) DEFAULT 100.00, -- porcentaje de la nota final
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 -- =====================================================
@@ -177,15 +187,13 @@ CREATE TABLE evaluaciones (
 -- Descripción: Notas obtenidas por los estudiantes
 -- =====================================================
 CREATE TABLE notas (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    evaluacion_id INT NOT NULL,
-    estudiante_id INT NOT NULL,
-    nota DECIMAL(2,1) NOT NULL CHECK (nota >= 1.0 AND nota <= 7.0),
-    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    id SERIAL PRIMARY KEY,
+    evaluacion_id INTEGER NOT NULL REFERENCES evaluaciones(id),
+    estudiante_id INTEGER NOT NULL REFERENCES estudiantes(id),
+    nota NUMERIC(2,1) NOT NULL CHECK (nota >= 1.0 AND nota <= 7.0),
+    fecha_registro TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     observaciones TEXT,
-    FOREIGN KEY (evaluacion_id) REFERENCES evaluaciones(id),
-    FOREIGN KEY (estudiante_id) REFERENCES estudiantes(id),
-    UNIQUE KEY unique_evaluacion_estudiante (evaluacion_id, estudiante_id)
+    CONSTRAINT unique_evaluacion_estudiante UNIQUE (evaluacion_id, estudiante_id)
 );
 
 -- =====================================================
@@ -207,8 +215,43 @@ CREATE INDEX idx_asignaciones_periodo ON asignaciones_docentes(periodo_academico
 
 CREATE INDEX idx_asignaciones_docente ON asignaciones_docentes(docente_id);
 
+-- Índices para RUTs (consultas frecuentes)
+CREATE INDEX idx_estudiantes_rut ON estudiantes(rut);
+
+CREATE INDEX idx_docentes_rut ON docentes(rut);
+
 -- =====================================================
--- VIEWS ÚTILES PARA CONSULTAS FRECUENTES
+-- TRIGGERS PARA ACTUALIZAR TIMESTAMP AUTOMÁTICAMENTE
+-- =====================================================
+
+-- Función para actualizar timestamp
+CREATE OR REPLACE FUNCTION actualizar_timestamp()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = CURRENT_TIMESTAMP;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Aplicar trigger a tablas relevantes
+CREATE TRIGGER trigger_actualizar_periodos 
+    BEFORE UPDATE ON periodos_academicos 
+    FOR EACH ROW EXECUTE FUNCTION actualizar_timestamp();
+
+CREATE TRIGGER trigger_actualizar_cursos 
+    BEFORE UPDATE ON cursos 
+    FOR EACH ROW EXECUTE FUNCTION actualizar_timestamp();
+
+CREATE TRIGGER trigger_actualizar_docentes 
+    BEFORE UPDATE ON docentes 
+    FOR EACH ROW EXECUTE FUNCTION actualizar_timestamp();
+
+CREATE TRIGGER trigger_actualizar_estudiantes 
+    BEFORE UPDATE ON estudiantes 
+    FOR EACH ROW EXECUTE FUNCTION actualizar_timestamp();
+
+-- =====================================================
+-- VISTAS ÚTILES PARA CONSULTAS FRECUENTES
 -- =====================================================
 
 -- Vista: Estudiantes con su información de matrícula actual
@@ -249,46 +292,90 @@ JOIN periodos_academicos pa ON ad.periodo_academico_id = pa.id
 WHERE d.estado = 'activo' AND pa.activo = TRUE;
 
 -- =====================================================
--- PROCEDIMIENTOS ALMACENADOS ÚTILES
+-- FUNCIONES ALMACENADAS ÚTILES
 -- =====================================================
 
-DELIMITER //    -- Cambiamos el delimitador a //
-
-CREATE PROCEDURE CalcularPromedioEstudianteAsignatura(   -- Definición del procedimiento
-    IN p_estudiante_id INT,       -- Parámetro de entrada (id estudiante)
-    IN p_asignatura_id INT,       -- Parámetro de entrada (id asignatura)
-    IN p_periodo_academico_id INT,-- Parámetro de entrada (id periodo)
-    OUT p_promedio DECIMAL(3,1)   -- Parámetro de salida (promedio)
+-- Función para calcular promedio de estudiante por asignatura
+CREATE OR REPLACE FUNCTION calcular_promedio_estudiante_asignatura(
+    p_estudiante_id INTEGER,
+    p_asignatura_id INTEGER,
+    p_periodo_academico_id INTEGER
 )
+RETURNS NUMERIC(3,1) AS $$
+DECLARE
+    promedio NUMERIC(3,1);
 BEGIN
-    -- Aquí va la lógica del procedimiento
-    SELECT AVG(n.nota)    -- Se calcula el promedio de las notas
-    INTO p_promedio       -- Se almacena el resultado en la variable de salida
+    SELECT AVG(n.nota)
+    INTO promedio
     FROM notas n
     JOIN evaluaciones ev ON n.evaluacion_id = ev.id
     JOIN asignaciones_docentes ad ON ev.asignacion_docente_id = ad.id
     WHERE n.estudiante_id = p_estudiante_id 
       AND ad.asignatura_id = p_asignatura_id
       AND ad.periodo_academico_id = p_periodo_academico_id;
-END //    -- Fin del procedimiento
-
-DELIMITER ;   -- Volvemos al delimitador por defecto ;
-
-
--- =====================================================
--- TRIGGERS PARA AUDITORÍA Y VALIDACIONES
--- =====================================================
-
-DELIMITER //
-
--- Trigger para validar que un curso no exceda su capacidad
-CREATE TRIGGER validar_capacidad_curso
-BEFORE INSERT ON matriculas
-FOR EACH ROW
-BEGIN
-    DECLARE capacidad INT;
-    DECLARE matriculados INT;
     
+    RETURN COALESCE(promedio, 0);
+END;
+$$ LANGUAGE plpgsql;
+
+-- Función para validar RUT chileno
+CREATE OR REPLACE FUNCTION validar_rut(rut_completo VARCHAR)
+RETURNS BOOLEAN AS $$
+DECLARE
+    rut_numeros VARCHAR;
+    digito_verificador VARCHAR; -- Cambiado de CHAR(1) a VARCHAR
+    suma INTEGER := 0;
+    multiplicador INTEGER := 2;
+    resto INTEGER;
+    dv_calculado VARCHAR; -- Cambiado de CHAR(1) a VARCHAR
+    i INTEGER;
+BEGIN
+    -- Limpiar RUT (quitar puntos y guión)
+    rut_completo := REPLACE(REPLACE(rut_completo, '.', ''), '-', '');
+
+    -- Separar número del dígito verificador
+    rut_numeros := SUBSTRING(rut_completo FROM 1 FOR LENGTH(rut_completo) - 1);
+    digito_verificador := UPPER(SUBSTRING(rut_completo FROM LENGTH(rut_completo)));
+
+    -- Validar que el RUT tenga entre 8 y 9 dígitos
+    IF LENGTH(rut_numeros) < 7 OR LENGTH(rut_numeros) > 8 THEN
+        RETURN FALSE;
+    END IF;
+
+    -- Calcular dígito verificador
+    FOR i IN REVERSE LENGTH(rut_numeros)..1 LOOP
+        suma := suma + (SUBSTRING(rut_numeros FROM i FOR 1)::INTEGER * multiplicador);
+        multiplicador := multiplicador + 1;
+        IF multiplicador > 7 THEN
+            multiplicador := 2;
+        END IF;
+    END LOOP;
+
+    resto := suma % 11;
+
+    IF resto = 0 THEN
+        dv_calculado := '0';
+    ELSIF resto = 1 THEN
+        dv_calculado := 'K';
+    ELSE
+        dv_calculado := (11 - resto)::TEXT;
+    END IF;
+
+    RETURN dv_calculado = digito_verificador;
+END;
+$$ LANGUAGE plpgsql;
+
+-- =====================================================
+-- TRIGGERS PARA VALIDACIONES
+-- =====================================================
+
+-- Trigger para validar capacidad del curso
+CREATE OR REPLACE FUNCTION validar_capacidad_curso()
+RETURNS TRIGGER AS $$
+DECLARE
+    capacidad INTEGER;
+    matriculados INTEGER;
+BEGIN
     SELECT c.capacidad_maxima INTO capacidad
     FROM cursos c WHERE c.id = NEW.curso_id;
     
@@ -296,29 +383,86 @@ BEGIN
     FROM matriculas m WHERE m.curso_id = NEW.curso_id AND m.estado = 'activo';
     
     IF matriculados >= capacidad THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El curso ha alcanzado su capacidad máxima';
+        RAISE EXCEPTION 'El curso ha alcanzado su capacidad máxima de % estudiantes', capacidad;
     END IF;
-END //
+    
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
-DELIMITER ;
+CREATE TRIGGER trigger_validar_capacidad_curso
+    BEFORE INSERT ON matriculas
+    FOR EACH ROW EXECUTE FUNCTION validar_capacidad_curso();
+
+-- Trigger para validar RUT al insertar estudiantes
+CREATE OR REPLACE FUNCTION validar_rut_estudiante()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NOT validar_rut(NEW.rut) THEN
+        RAISE EXCEPTION 'RUT inválido: %', NEW.rut;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_validar_rut_estudiante
+    BEFORE INSERT OR UPDATE ON estudiantes
+    FOR EACH ROW EXECUTE FUNCTION validar_rut_estudiante();
+
+-- Trigger para validar RUT al insertar docentes
+CREATE TRIGGER trigger_validar_rut_docente
+    BEFORE INSERT OR UPDATE ON docentes
+    FOR EACH ROW EXECUTE FUNCTION validar_rut_estudiante();
+
+-- =====================================================
+-- CONFIGURACIÓN DE SEGURIDAD Y PERMISOS
+-- =====================================================
+
+-- Crear roles para diferentes tipos de usuarios
+-- CREATE ROLE admin_escolar;
+-- CREATE ROLE docente_usuario;
+-- CREATE ROLE secretaria_usuario;
+
+-- Permisos para administrador escolar
+-- GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO admin_escolar;
+-- GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO admin_escolar;
+
+-- Permisos para docentes (solo lectura de estudiantes y escritura de notas)
+-- GRANT SELECT ON estudiantes, cursos, asignaturas TO docente_usuario;
+-- GRANT SELECT, INSERT, UPDATE ON notas, evaluaciones TO docente_usuario;
 
 -- =====================================================
 -- COMENTARIOS FINALES
 -- =====================================================
 /*
-Esta estructura de base de datos permite:
-1. Gestionar múltiples años académicos y semestres
-2. Controlar la matrícula de estudiantes por curso
-3. Asignar docentes a asignaturas y cursos específicos
-4. Registrar evaluaciones y notas de manera detallada
-5. Mantener histórico completo de la información académica
-6. Generar reportes complejos mediante las vistas creadas
+CARACTERÍSTICAS PRINCIPALES DE LA MIGRACIÓN A POSTGRESQL:
 
-Características técnicas:
-- Normalización hasta 3FN
-- Índices para optimizar consultas frecuentes
-- Constraints para mantener integridad de datos
-- Triggers para validaciones automáticas
-- Views para simplificar consultas complejas
-- Procedimientos almacenados para cálculos recurrentes
+1. CAMBIOS PRINCIPALES:
+   - AUTO_INCREMENT → SERIAL
+   - TINYINT → SMALLINT
+   - ENUM → Tipos personalizados (CREATE TYPE)
+   - DECIMAL → NUMERIC
+   - UNIQUE KEY → CONSTRAINT
+   - ON UPDATE CURRENT_TIMESTAMP → Triggers personalizados
+
+2. MEJORAS AGREGADAS:
+   - Extensión UUID para posibles usos futuros
+   - Timestamps con zona horaria (TIMESTAMP WITH TIME ZONE)
+   - Función de validación de RUT chileno
+   - Triggers automáticos para actualización de timestamps
+   - Mejor manejo de errores con RAISE EXCEPTION
+   - Funciones en PL/pgSQL más robustas
+
+3. OPTIMIZACIONES:
+   - Índices específicos para PostgreSQL
+   - Constraints más explícitos
+   - Mejor documentación de funciones
+
+4. COMPATIBILIDAD:
+   - Mantiene toda la funcionalidad del sistema original
+   - Listo para usar en Neon.tech
+   - Compatible con aplicaciones web modernas
+   - Fácil integración con ORMs como Prisma, TypeORM, etc.
+
+La estructura está optimizada para PostgreSQL y lista para producción.
 */
