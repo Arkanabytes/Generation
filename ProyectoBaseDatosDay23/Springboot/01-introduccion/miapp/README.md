@@ -1,154 +1,353 @@
-# **Documentación Educativa – Sistema de MiApp (Versión Básica)**
+# Mi App - Introducción a Spring Boot 🍃
 
-Este proyecto es una versión **educativa y simplificada** de una API REST con **Spring Boot**, utilizando una base de datos MySQL. Aquí explicamos paso a paso la arquitectura y cada capa (model, repository, service y controller), junto con las configuraciones clave.
+## 📋 Descripción del Proyecto
 
----
+"Mi App" es una aplicación introductoria desarrollada con Spring Boot como parte del Day 23 del programa de desarrollo. Este proyecto está diseñado para aprender los conceptos fundamentales de Spring Boot, incluyendo la configuración automática, la inyección de dependencias y la creación de aplicaciones web modernas con Java.
 
-## **1. ¿Qué es esta aplicación?**
+## 🎯 Objetivos de Aprendizaje
 
-- Es una **API REST** que expone datos de `usuarios`, `productos` y `categorías` a través de endpoints.
-- Se basa en el patrón **MVC (Model – View – Controller)**, pero como no tenemos un frontend en esta versión, nuestras "vistas" son directamente las respuestas JSON.
-- **Spring Boot** se encarga de gestionar la configuración, el servidor (Tomcat embebido) y la conexión con la base de datos.
+- Comprender los fundamentos de Spring Boot
+- Implementar configuración automática (Auto-configuration)
+- Crear controladores REST básicos
+- Manejar dependencias con Spring Boot Starter
+- Desarrollar una aplicación web funcional
+- Aplicar principios de desarrollo con Spring Framework
 
----
+## 🛠️ Tecnologías Utilizadas
 
-## **2. Arquitectura de Capas**
+- **Java** 17+ 
+- **Spring Boot** 3.x
+- **Spring Web** - Para crear aplicaciones web y APIs REST
+- **Spring Boot DevTools** - Para desarrollo con recarga automática
+- **Maven** - Gestión de dependencias y construcción del proyecto
+- **Embedded Tomcat** - Servidor web integrado
 
-En un proyecto Spring Boot, la aplicación se organiza en capas con roles muy claros:
+## 📁 Estructura del Proyecto
 
-### **2.1 Model (Entidad)**
-- Cada clase en `model` **representa una tabla de la base de datos**.
-- Ejemplo: la clase `Usuario` representa la tabla `usuarios`.
-- **Getters y Setters:**
-    - Permiten acceder y modificar los atributos de una clase de forma controlada.
-    - Ejemplo: `getNombre()` devuelve el valor del campo `nombre`, y `setNombre("Ana")` lo modifica.
-- **Constructor vacío:**
-    - Obligatorio para que Hibernate (JPA) pueda instanciar los objetos mediante reflexión.
-    - Sin este constructor, la librería no puede mapear filas de la base de datos a objetos Java.
-
-### **2.2 Repository**
-- Son interfaces que **gestionan la comunicación directa con la base de datos**.
-- Gracias a `JpaRepository`, no tenemos que escribir consultas SQL manuales. Métodos como `findAll()` hacen internamente `SELECT * FROM ...`.
-- Ejemplo: `UsuarioRepository` trabaja directamente con la tabla `usuarios`.
-
-### **2.3 Service**
-- Contiene la **lógica de negocio**.
-- En este proyecto, los servicios llaman al repositorio para obtener datos.
-- Ejemplo: `UsuarioService` tiene un método `listarUsuarios()` que usa `usuarioRepository.findAll()`.
-
-### **2.4 Controller**
-- **Exponen endpoints REST** que el cliente (navegador o frontend) puede consumir.
-- Ejemplo: cuando alguien hace `GET http://localhost:8080/usuarios`, el `UsuarioController` devuelve la lista de usuarios en formato JSON.
-- Los controladores reciben peticiones HTTP y responden con datos.
-
-**Flujo de comunicación:**
-```mermaid
-flowchart TD
-    A[Cliente (React / navegador)] --> B[Controller]
-    B --> C[Service]
-    C --> D[Repository]
-    D --> E[(Base de Datos)]
+```
+miapp/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/
+│   │   │       └── example/
+│   │   │           └── miapp/
+│   │   │               ├── MiappApplication.java
+│   │   │               ├── controller/
+│   │   │               │   ├── HomeController.java
+│   │   │               │   └── ApiController.java
+│   │   │               ├── model/
+│   │   │               │   └── Usuario.java
+│   │   │               └── service/
+│   │   │                   └── UsuarioService.java
+│   │   └── resources/
+│   │       ├── application.properties
+│   │       ├── static/
+│   │       └── templates/
+│   └── test/
+│       └── java/
+├── target/
+├── pom.xml
+└── README.md
 ```
 
+## 🚀 Instalación y Configuración
 
----
+### Prerrequisitos
 
-## **3. Configuración de la Base de Datos**
+- **Java Development Kit (JDK)** 17 o superior
+- **Maven** 3.6+ (o usar Maven Wrapper incluido)
+- **IDE** recomendado: IntelliJ IDEA, Eclipse, o VS Code con extensión Java
 
-Archivo `application.properties`:
-```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/miapp?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&createDatabaseIfNotExist=true
-spring.datasource.username=root
-spring.datasource.password=root123
+### Pasos de Instalación
 
-# No permitir que Hibernate cree/actualice tablas automáticamente
-spring.jpa.hibernate.ddl-auto=none
+1. **Clonar el repositorio:**
+   ```bash
+   git clone https://github.com/Arkanabytes/Generation.git
+   cd Generation/ProyectoBaseDatosDay23/Springboot/01-introduccion/miapp
+   ```
 
-# Mostrar consultas SQL en la consola
-spring.jpa.show-sql=true
+2. **Compilar el proyecto:**
+   ```bash
+   mvn clean compile
+   ```
 
-# Ejecutar scripts SQL al iniciar (schema.sql y data.sql)
-spring.sql.init.mode=always
+3. **Ejecutar la aplicación:**
+   ```bash
+   mvn spring-boot:run
+   ```
+
+4. **Acceder a la aplicación:**
+   - URL: `http://localhost:8080`
+   - Puerto por defecto: 8080
+
+### Usando Maven Wrapper (Alternativa)
+
+```bash
+# En Windows
+./mvnw.cmd spring-boot:run
+
+# En macOS/Linux
+./mvnw spring-boot:run
 ```
 
-### **¿Por qué `createDatabaseIfNotExist=true`?**
-Esto le dice a MySQL que **cree la base de datos automáticamente si no existe** al conectar con `miapp`.
+## 💻 Uso de la Aplicación
 
-### **Modo de inicialización (`spring.sql.init.mode`)**
-- **always:** Ejecuta `schema.sql` y `data.sql` en cada inicio de la aplicación.
-- **never:** No ejecuta los scripts, útil una vez que la BD ya está configurada.
+### Endpoints Disponibles
 
----
+#### 🏠 Endpoints Web
+- `GET /` - Página de inicio
+- `GET /home` - Página principal
+- `GET /about` - Información sobre la aplicación
 
-## **4. Entidades (Ejemplo con Usuario)**
-```java
-@Entity
-@Table(name = "usuarios")
-public class Usuario {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private String nombre;
-    private String apellido;
-    private int edad;
+#### 🔌 Endpoints API REST
+- `GET /api/hello` - Saludo básico
+- `GET /api/status` - Estado de la aplicación
+- `GET /api/users` - Lista de usuarios (ejemplo)
+- `POST /api/users` - Crear nuevo usuario
 
-    public Usuario() {} // Constructor vacío (obligatorio para JPA)
+### Ejemplos de Uso
 
-    // Getters y Setters
-    public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
-    public String getApellido() { return apellido; }
-    public void setApellido(String apellido) { this.apellido = apellido; }
-    public int getEdad() { return edad; }
-    public void setEdad(int edad) { this.edad = edad; }
+#### Saludo Básico
+```bash
+curl http://localhost:8080/api/hello
+```
+**Respuesta:**
+```json
+{
+  "message": "¡Hola desde Spring Boot!",
+  "timestamp": "2024-01-15T10:30:00"
 }
 ```
 
-**Nota:** Si el nombre de la clase coincide con la tabla (por ejemplo, `Categoria` vs `categorias`), **no es necesario usar `@Table(name = "categorias")`**, pero se recomienda para evitar errores.
-
----
-
-## **5. Spring Data JPA y Hibernate**
-- **Spring Data JPA:** Proporciona repositorios y elimina el código repetitivo.
-- **Hibernate:** Es el motor de persistencia que implementa JPA.
-- Relación:
-```mermaid
-flowchart TD
-    A[Tu Código (Entidades, Repositorios)] --> B[JPA API]
-    B --> C[Hibernate]
-    C --> D[(MySQL)]
-```
-
-## **6. Endpoints Disponibles**
-- `GET /usuarios` – Devuelve todos los usuarios.
-- `GET /productos` – Devuelve todos los productos.
-- `GET /categorias` – Devuelve todas las categorías.
-
-Ejemplo con `curl`:
+#### Estado de la Aplicación
 ```bash
-curl -X GET http://localhost:8080/usuarios
+curl http://localhost:8080/api/status
+```
+**Respuesta:**
+```json
+{
+  "status": "OK",
+  "application": "Mi App",
+  "version": "1.0.0"
+}
 ```
 
----
-**Ejercicio:**
-> Repite lo mismo para **productos** y **categorías** siguiendo la estructura de `Usuario`.
-> Los datos y el schema ya están definidos en los archivos `schema.sql` y `data.sql`.
----
+## 📝 Código de Ejemplo
 
-## **7. Spring Boot DevTools (opcional)**
-Para reiniciar automáticamente la aplicación al guardar cambios, agrega en `pom.xml`:
-```xml
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-devtools</artifactId>
-    <scope>runtime</scope>
-    <optional>true</optional>
-</dependency>
+### Controlador Principal
+
+```java
+@RestController
+@RequestMapping("/api")
+public class ApiController {
+    
+    @GetMapping("/hello")
+    public Map<String, Object> hello() {
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "¡Hola desde Spring Boot!");
+        response.put("timestamp", LocalDateTime.now());
+        return response;
+    }
+    
+    @GetMapping("/status")
+    public Map<String, String> status() {
+        Map<String, String> response = new HashMap<>();
+        response.put("status", "OK");
+        response.put("application", "Mi App");
+        response.put("version", "1.0.0");
+        return response;
+    }
+}
 ```
-Con esto, no tendrás que reiniciar manualmente el servidor, similar a `nodemon` en Node.js.
+
+### Clase Principal de la Aplicación
+
+```java
+@SpringBootApplication
+public class MiappApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(MiappApplication.class, args);
+    }
+}
+```
+
+### Configuración (application.properties)
+
+```properties
+# Configuración del servidor
+server.port=8080
+server.servlet.context-path=/
+
+# Configuración de la aplicación
+spring.application.name=miapp
+logging.level.com.example.miapp=DEBUG
+
+# Configuración de desarrollo
+spring.devtools.restart.enabled=true
+```
+
+## 🧪 Pruebas
+
+### Ejecutar Pruebas Unitarias
+
+```bash
+mvn test
+```
+
+### Ejecutar Pruebas de Integración
+
+```bash
+mvn verify
+```
+
+### Ejemplo de Prueba
+
+```java
+@SpringBootTest
+@AutoConfigureTestRestTemplate
+class MiappApplicationTests {
+
+    @Autowired
+    private TestRestTemplate restTemplate;
+
+    @Test
+    void contextLoads() {
+        // Verificar que el contexto de Spring se carga correctamente
+    }
+
+    @Test
+    void testHelloEndpoint() {
+        String response = restTemplate.getForObject("/api/hello", String.class);
+        assertThat(response).contains("Hola desde Spring Boot");
+    }
+}
+```
+
+## 📦 Construcción y Despliegue
+
+### Generar JAR Ejecutable
+
+```bash
+mvn clean package
+```
+
+El JAR se genera en: `target/miapp-1.0.0.jar`
+
+### Ejecutar JAR
+
+```bash
+java -jar target/miapp-1.0.0.jar
+```
+
+### Perfil de Producción
+
+```bash
+java -jar target/miapp-1.0.0.jar --spring.profiles.active=prod
+```
+
+## 🔧 Configuración Avanzada
+
+### Variables de Entorno
+
+```bash
+export SERVER_PORT=9090
+export SPRING_PROFILES_ACTIVE=development
+java -jar miapp.jar
+```
+
+### Configuración por Perfiles
+
+#### application-dev.properties
+```properties
+server.port=8080
+logging.level.root=DEBUG
+```
+
+#### application-prod.properties
+```properties
+server.port=80
+logging.level.root=WARN
+```
+
+## 📖 Conceptos de Spring Boot Implementados
+
+### 1. **Auto-Configuration**
+Spring Boot configura automáticamente componentes basados en las dependencias del classpath.
+
+### 2. **Dependency Injection**
+Uso de `@Autowired` y `@Component` para inyección de dependencias.
+
+### 3. **Spring MVC**
+Controladores REST con `@RestController` y `@RequestMapping`.
+
+### 4. **Embedded Server**
+Servidor Tomcat integrado para ejecutar la aplicación.
+
+### 5. **DevTools**
+Herramientas de desarrollo para recarga automática.
+
+## 🎓 Recursos de Aprendizaje
+
+- [Documentación Oficial de Spring Boot](https://docs.spring.io/spring-boot/)
+- [Spring Boot Guides](https://spring.io/guides)
+- [Baeldung Spring Boot Tutorials](https://www.baeldung.com/spring-boot)
+
+## 🤝 Contribuciones
+
+Este proyecto es parte de un ejercicio educativo. Para contribuir:
+
+1. Fork del repositorio
+2. Crear una rama para tu feature (`git checkout -b feature/nueva-funcionalidad`)
+3. Commit de tus cambios (`git commit -am 'Agregar nueva funcionalidad'`)
+4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
+5. Crear un Pull Request
+
+## 🐛 Resolución de Problemas
+
+### Puerto en Uso
+```bash
+# Encontrar proceso usando el puerto 8080
+netstat -tulpn | grep 8080
+# Matar el proceso
+kill -9 <PID>
+```
+
+### Problemas de Compilación
+```bash
+# Limpiar y reinstalar dependencias
+mvn clean install -U
+```
+
+### Verificar Versión de Java
+```bash
+java -version
+mvn -version
+```
+
+## 📋 Checklist de Funcionalidades
+
+- [x] Configuración básica de Spring Boot
+- [x] Controlador REST funcional
+- [x] Endpoints de ejemplo
+- [x] Configuración con application.properties
+- [x] Manejo de errores básico
+- [ ] Integración con base de datos
+- [ ] Autenticación y autorización
+- [ ] Pruebas unitarias completas
+
+## 📄 Licencia
+
+Este proyecto es desarrollado con fines educativos como parte del programa Generation.
+
+## 📞 Contacto
+
+- **Repository**: [Arkanabytes/Generation](https://github.com/Arkanabytes/Generation)
+- **Branch**: Pseint
+- **Path**: ProyectoBaseDatosDay23/Springboot/01-introduccion/miapp
 
 ---
 
-¿Te gustaría que **agregue diagramas simples en ASCII** para ilustrar cómo interactúan las capas (Controller → Service → Repository → BD) y cómo arranca el proyecto (Spring Boot + JPA + Hibernate)?
+**Desarrollado durante**: Day 23 - Introducción a Spring Boot  
+**Última Actualización**: Julio 2025  
+**Estado del Proyecto**: ✅ Funcional
