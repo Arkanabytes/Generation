@@ -1,206 +1,253 @@
-# 🚀 Generation - Bootcamp Java
+# 🚀 Generation - Bootcamp Java Learning Journey
 
-[![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)](https://www.java.com)
-[![Status](https://img.shields.io/badge/Status-En%20Progreso-yellow?style=for-the-badge)](#estado-del-progreso)
-[![Version](https://img.shields.io/badge/Version-2.0.0-blue?style=for-the-badge)](#)
-[![Generation](https://img.shields.io/badge/Generation-Chile-red?style=for-the-badge)](https://www.generation.org/chile/)
+¡Bienvenido/a a mi repositorio de aprendizaje Java! Este proyecto documenta mi progreso diario en el bootcamp de desarrollo de software, donde exploro desde los fundamentos del lenguaje hasta conceptos más avanzados.
 
-> 📚 **Repositorio de aprendizaje Java** - Documentando mi progreso diario en el bootcamp de desarrollo de software Generation.
+## 📋 Descripción del Proyecto
 
-## 📖 Descripción
+Este repositorio contiene una colección de ejercicios prácticos diarios organizados por temática y complejidad, abarcando desde los fundamentos del lenguaje Java hasta estructuras más avanzadas. Es tanto una herramienta de aprendizaje personal como una referencia futura para conceptos importantes.
 
-Este repositorio documenta mi travesía de aprendizaje en **Java** durante mi participación en el bootcamp intensivo de **Generation**. Aquí encontrarás una colección completa de ejercicios prácticos, organizados por temática y nivel de complejidad, desde los fundamentos básicos hasta conceptos avanzados de programación orientada a objetos.
-
-## 🎯 Objetivos del Repositorio
+## 🎯 Objetivos
 
 | Objetivo | Descripción |
 |----------|-------------|
-| 🧠 **Reforzar conocimientos** | Consolidar el aprendizaje mediante práctica constante |
-| 💡 **Desarrollar lógica** | Resolver problemas con ejercicios progresivos |
-| ✨ **Buenas prácticas** | Implementar código limpio y mantenible |
-| 📚 **Referencia personal** | Crear documentación para consulta futura |
-| 📈 **Seguimiento** | Demostrar progreso y evolución diaria |
+| 🧠 **Reforzar conocimientos** | Mediante la práctica constante |
+| 💡 **Desarrollar lógica** | Con ejercicios progresivos |
+| ✨ **Buenas prácticas** | Implementar código limpio |
+| 📚 **Referencia futura** | Crear documentación personal |
+| 📈 **Demostrar progreso** | Seguimiento diario del aprendizaje |
 
-## 🗂️ Estructura del Proyecto
+## 📚 Contenido del Bootcamp
+
+### 🟢 Completado
+- ✅ Sintaxis básica y tipos de datos
+- ✅ Variables y constantes
+- ✅ Operadores (aritméticos, lógicos, relacionales, ternarios)
+- ✅ Estructuras de control (if, switch, while, for)
+
+### 🟡 En Progreso
+- 🔄 Métodos y funciones
+- 🔄 Programación orientada a objetos (POO)
+- 🔄 Herencia y polimorfismo
+- 🔄 Encapsulación y abstracción
+
+### 🟠 Próximamente
+- ⏳ Manejo de excepciones
+- ⏳ Entrada/salida y manipulación de archivos
+- ⏳ Colecciones y estructuras de datos
+- ⏳ Programación funcional
+- ⏳ Multithreading
+
+*Leyenda: ✅ Completado | 🔄 En progreso | ⏳ Próximamente*
+
+## 📁 Estructura del Proyecto
 
 ```
 📦 Generation/
 ├── 📁 01-fundamentos/
-│   ├── 📁 operadores/          # Operadores aritméticos, lógicos y relacionales
-│   ├── 📁 condicionales/       # Estructuras if, else if, switch
-│   ├── 📁 bucles/             # Loops: for, while, do-while
-│   └── 📁 miscelaneos/        # Variables, tipos de datos
-├── 📁 02-metodos/             # Funciones, parámetros, retorno
-├── 📁 03-poo/                 # Programación Orientada a Objetos
-├── 📁 04-excepciones/         # Manejo de errores y excepciones
-├── 📁 05-colecciones/         # ArrayList, HashMap, etc.
-├── 📁 docs/                   # Documentación adicional
-│   ├── 📄 EJERCICIOS.md      # Lista de ejercicios extra
-│   ├── 📄 RECURSOS.md        # Enlaces y herramientas útiles
-│   └── 📄 NOTAS.md           # Apuntes del bootcamp
+│   ├── 📁 operadores/
+│   │   ├── 📄 Operadores.java
+│   │   ├── 📄 OperadoresAsignacion.java
+│   │   ├── 📄 OperadoresComparacion.java
+│   │   └── 📄 OperadorTernario.java
+│   ├── 📁 condicionales/
+│   │   ├── 📄 IfSimple.java
+│   │   ├── 📄 IfBoolean.java
+│   │   ├── 📄 IfAnidados.java
+│   │   ├── 📄 ElseIf.java
+│   │   └── 📄 [más archivos...]
+│   ├── 📁 bucles/
+│   │   ├── 📄 For.java
+│   │   ├── 📄 While.java
+│   │   └── 📄 DoWhile.java
+│   ├── 📁 switch/
+│   │   ├── 📄 Switch.java
+│   │   └── 📄 [variaciones...]
+│   └── 📁 miscelaneos/
+│       └── 📄 Variables.java
+├── 📁 02-metodos/
+├── 📁 03-poo/
+├── 📁 04-excepciones/
+├── 📁 05-colecciones/
+├── 📁 docs/
+│   ├── 📄 EJERCICIOS.md
+│   ├── 📄 RECURSOS.md
+│   └── 📄 NOTAS.md
 └── 📄 README.md
 ```
 
-## 📊 Estado del Progreso
+## 🗂️ Organización por Módulos
 
-### 🎓 Temas Completados vs. En Desarrollo
+| Carpeta | Contenido | Estado |
+|---------|-----------|---------|
+| **01-fundamentos** | Sintaxis básica, operadores, condicionales | ✅ Activo |
+| **02-metodos** | Funciones, parámetros, return | 🔄 En progreso |
+| **03-poo** | Clases, objetos, herencia | ⏳ Próximamente |
+| **04-excepciones** | Try-catch, throws, finally | ⏳ Próximamente |
+| **05-colecciones** | ArrayList, HashMap, etc. | ⏳ Próximamente |
+| **docs** | Documentación adicional | ✅ Activo |
 
-| Módulo | Estado | Progreso | Descripción |
-|--------|--------|----------|-------------|
-| **Fundamentos** | ✅ Completado | `████████████████████` 100% | Variables, tipos de datos, operadores |
-| **Condicionales** | ✅ Completado | `████████████████████` 100% | If, else if, switch, operador ternario |
-| **Bucles** | ✅ Completado | `████████████████████` 100% | For, while, do-while, bucles anidados |
-| **Métodos** | 🔄 En Progreso | `████████████░░░░░░░░` 60% | Funciones, parámetros, sobrecarga |
-| **POO Básica** | 🔄 En Progreso | `██████░░░░░░░░░░░░░░` 30% | Clases, objetos, constructores |
-| **Herencia** | ⏳ Pendiente | `░░░░░░░░░░░░░░░░░░░░` 0% | Extends, super, polimorfismo |
-| **Excepciones** | ⏳ Pendiente | `░░░░░░░░░░░░░░░░░░░░` 0% | Try-catch, throws, finally |
-| **Colecciones** | ⏳ Pendiente | `░░░░░░░░░░░░░░░░░░░░` 0% | ArrayList, HashMap, iteradores |
+## 📅 Cronología de Aprendizaje
 
-### 📈 Métricas de Aprendizaje
+### Semana 1-2: Fundamentos
+- **Día 1-2:** Sintaxis básica, variables y tipos de datos
+- **Día 3-4:** Operadores y expresiones
+- **Día 5-7:** Estructuras condicionales (if, else if, switch)
+- **Día 8-10:** Bucles (for, while, do-while)
+- **Día 11-12:** Métodos y funciones
+- **Día 13-14:** Manejo de arrays básicos
 
-| Métrica | Valor | Descripción |
-|---------|-------|-------------|
-| 📚 **Ejercicios Completados** | 25+ | Total de problemas resueltos |
-| 📅 **Días de Práctica** | 20+ | Días consecutivos programando |
-| 🧠 **Conceptos Dominados** | 12 | Temas completamente entendidos |
-| 🏆 **Proyectos Mini** | 5 | Aplicaciones pequeñas funcionales |
-| ⏱️ **Horas de Código** | 60+ | Tiempo invertido en programación |
+### Semanas Siguientes
+- **Semana 3:** Introducción a POO
+- **Semana 4:** Herencia y polimorfismo
+- **Semana 5:** Colecciones y estructuras de datos
 
 ## 🛠️ Tecnologías y Herramientas
 
-### 💻 Desarrollo
-[![Java](https://img.shields.io/badge/Java-ED8B00?style=flat-square&logo=openjdk&logoColor=white)](https://www.java.com)
-[![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ_IDEA-000000.svg?style=flat-square&logo=intellij-idea&logoColor=white)](https://www.jetbrains.com/idea/)
-[![VS Code](https://img.shields.io/badge/VS_Code-007ACC?style=flat-square&logo=visual%20studio%20code&logoColor=white)](https://code.visualstudio.com/)
+### Desarrollo
+![Java](https://img.shields.io/badge/Java-ED8B00?style=flat-square&logo=java&logoColor=white)
+![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ_IDEA-000000.svg?style=flat-square&logo=intellij-idea&logoColor=white)
+![VS Code](https://img.shields.io/badge/VS_Code-007ACC?style=flat-square&logo=visual%20studio%20code&logoColor=white)
 
-### 🔧 Control de Versiones
-[![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white)](https://git-scm.com/)
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat-square&logo=github&logoColor=white)](https://github.com)
+### Control de Versiones
+![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat-square&logo=github&logoColor=white)
+
+### Tecnologías Complementarias
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
 
 ## 🚀 Cómo Usar Este Repositorio
 
-### 📋 Prerequisitos
+### Instalación
 ```bash
-# Verificar Java instalado
-java -version
-
-# Verificar compilador Java
-javac -version
-```
-
-### 🏃‍♂️ Inicio Rápido
-```bash
-# 1. Clonar el repositorio
+# Clona el repositorio
 git clone https://github.com/Arkanabytes/Generation.git
 
-# 2. Navegar al directorio
+# Navega al directorio
 cd Generation
 
-# 3. Explorar la estructura
+# Explora la estructura
 ls -la
+```
 
-# 4. Ejecutar un ejercicio (ejemplo)
-cd 01-fundamentos/operadores
-javac Operadores.java
+### Ejecución de Ejercicios
+```bash
+# Compila un archivo Java
+javac ruta/al/archivo/NombreArchivo.java
+
+# Ejecuta el programa
+java NombreArchivo
+
+# Ejemplo específico
+javac 01-fundamentos/operadores/Operadores.java
 java Operadores
 ```
 
-### 📚 Ruta de Aprendizaje Sugerida
+### Guía de Navegación
+1. Revisa la estructura del proyecto arriba
+2. Explora por temática según tu nivel de conocimiento
+3. Consulta la documentación adicional en `docs/`
+4. Practica con los ejercicios siguiendo el orden sugerido
 
-1. **Semana 1-2**: Fundamentos (variables, operadores, sintaxis)
-2. **Semana 2-3**: Estructuras de control (condicionales y bucles)
-3. **Semana 3-4**: Métodos y funciones
-4. **Semana 4-5**: Introducción a POO (clases y objetos)
-5. **Semana 5-6**: Herencia y polimorfismo
-6. **Semana 6-7**: Manejo de excepciones
-7. **Semana 7-8**: Colecciones y estructuras de datos
+## 📖 Recursos de Aprendizaje
 
-## 📚 Recursos Adicionales
+### Documentación Oficial
+- [Oracle Java Documentation](https://docs.oracle.com/en/java/) - Documentación oficial
+- [Java Tutorials](https://docs.oracle.com/javase/tutorial/) - Tutoriales oficiales
+- [OpenJDK](https://openjdk.java.net/) - Java de código abierto
 
-### 🔗 Documentación Oficial
-- [Oracle Java Documentation](https://docs.oracle.com/en/java/) - Documentación oficial completa
-- [Java SE Tutorial](https://docs.oracle.com/javase/tutorial/) - Tutoriales paso a paso
-- [OpenJDK](https://openjdk.java.net/) - Implementación open source de Java
-
-### 🎓 Cursos y Certificaciones
-- [Oracle Java Certification](https://education.oracle.com/java) - Certificación oficial
-- [Generation Chile](https://www.generation.org/chile/) - Bootcamp oficial
+### Cursos y Certificaciones
 - [Codecademy Java](https://www.codecademy.com/learn/learn-java) - Curso interactivo
+- [Oracle Java Certification](https://education.oracle.com/java) - Certificación oficial
+- [Baeldung](https://www.baeldung.com/) - Tutoriales avanzados
 
-### 📖 Documentación Interna
-- [📋 Ejercicios Extra](docs/EJERCICIOS.md) - Desafíos adicionales para practicar
-- [🔧 Recursos Útiles](docs/RECURSOS.md) - Herramientas y enlaces recomendados  
-- [📝 Notas del Bootcamp](docs/NOTAS.md) - Apuntes y conceptos clave
+### Documentación del Proyecto
+- [Ejercicios adicionales](docs/EJERCICIOS.md) - Más práctica
+- [Recursos útiles](docs/RECURSOS.md) - Enlaces y herramientas
+- [Notas personales](docs/NOTAS.md) - Apuntes del bootcamp
+
+## 📊 Estadísticas de Progreso
+
+| Métrica | Valor |
+|---------|-------|
+| 📚 **Total de ejercicios** | 25+ |
+| 📅 **Días de práctica** | 14 |
+| 🧠 **Conceptos dominados** | 8 |
+| 🏆 **Proyectos completados** | 3 |
+| ⏱️ **Horas de código** | 40+ |
+
+### Progreso por Tema
+```
+Fundamentos     ████████████████████ 100%
+Operadores      ████████████████████ 100%
+Condicionales   ████████████████████ 100%
+Bucles          ████████████████████ 100%
+Métodos         ████████░░░░░░░░░░░░░ 40%
+POO             ████░░░░░░░░░░░░░░░░░ 20%
+Excepciones     ░░░░░░░░░░░░░░░░░░░░░ 0%
+Colecciones     ░░░░░░░░░░░░░░░░░░░░░ 0%
+```
 
 ## 🤝 Contribuciones
 
-¡Este es un repositorio de aprendizaje, pero siempre estoy abierto a contribuciones y sugerencias!
+Este es un repositorio personal de aprendizaje, pero siempre estoy abierto/a a:
 
-### 🌟 Formas de Contribuir
-
-| Tipo | Descripción | Cómo Ayudar |
+| Tipo | Descripción | Cómo ayudar |
 |------|-------------|-------------|
-| 🐛 **Bug Reports** | Errores en el código | Crear un issue detallado |
-| 💡 **Sugerencias** | Mejoras y nuevas ideas | Abrir una discusión |
+| 🐛 **Correcciones** | Errores de código | Crear issue o PR |
+| 💡 **Sugerencias** | Mejoras y nuevas ideas | Abrir discusión |
 | 📚 **Recursos** | Enlaces útiles | Compartir en issues |
-| 🎯 **Ejercicios** | Nuevos desafíos | Proponer vía PR |
+| 🎯 **Ejercicios** | Nuevos desafíos | Proponer en issues |
 
-### 📋 Proceso de Contribución
+### Proceso de Contribución
 ```bash
-# 1. Fork del repositorio
-# 2. Crear rama para tu contribución
-git checkout -b feature/nueva-funcionalidad
+# Fork el repositorio
+# Crea una rama para tu contribución
+git checkout -b feature/nuevo-ejercicio
 
-# 3. Realizar cambios
-git add .
-git commit -m "✨ Agregar nuevo ejercicio de arrays"
+# Realiza tus cambios
+git commit -m "Agrega ejercicio de arrays"
 
-# 4. Push y crear Pull Request
-git push origin feature/nueva-funcionalidad
+# Envía un Pull Request
+git push origin feature/nuevo-ejercicio
 ```
 
-## 🎯 Próximos Pasos
+## 💭 Filosofía de Aprendizaje
 
-- [ ] Completar módulo de métodos avanzados
-- [ ] Implementar ejercicios de POO intermedio
-- [ ] Crear proyecto integrador usando Spring Boot
-- [ ] Preparar certificación Oracle Java SE
-- [ ] Documentar mejores prácticas aprendidas
+> *"La práctica constante es la clave del éxito en programación. Cada línea de código es un paso más hacia convertirme en un desarrollador Java competente."*
+
+## 🎯 Metas Futuras
+
+- ✅ Completar todos los ejercicios de fundamentos
+- 🔄 Dominar la programación orientada a objetos
+- ⏳ Crear mi primer proyecto Java completo
+- ⏳ Obtener certificación Oracle Java SE
+
+## 🏆 Logros Alcanzados
+
+- ✅ Comprensión sólida de sintaxis Java
+- ✅ Dominio de estructuras de control
+- ✅ Implementación exitosa de algoritmos básicos
+- ✅ Creación de repositorio organizado y documentado
 
 ## 📞 Contacto
 
-| Plataforma | Enlace |
-|------------|---------|
-| 📧 **Email** | [konshuelo@hotmail.com](mailto:konshuelo@hotmail.com) |
-| 💼 **LinkedIn** | [Consuelo Pinto Toro](https://www.linkedin.com/in/consuelo-alejandra-pinto-toro/) |
-| 🐱 **GitHub** | [@Arkanabytes](https://github.com/Arkanabytes) |
-
-## 📄 Licencia
-
-Este proyecto está bajo la Licencia MIT - ve el archivo [LICENSE](LICENSE) para más detalles.
-
-## 🙏 Agradecimientos
-
-- **Generation Chile** por la oportunidad y metodología de aprendizaje
-- **Instructores** por su dedicación y apoyo constante
-- **Compañeros de bootcamp** por el aprendizaje colaborativo
-- **Comunidad Java** por recursos y documentación
+| Plataforma | Usuario/Enlace |
+|------------|----------------|
+| **GitHub** | [@Arkanabytes](https://github.com/Arkanabytes) |
+| **Email** | [konshuelo@hotmail.com](mailto:konshuelo@hotmail.com) |
+| **LinkedIn** | [Consuelo Pinto Toro](https://www.linkedin.com/in/consuelo-alejandra-pinto-toro/) |
 
 ---
 
-<div align="center">
+⭐ **Si este repositorio te resulta útil, considera darle una estrella para apoyar mi proceso de aprendizaje.**
 
-### 💭 Reflexión Personal
-
-*"Cada línea de código es un paso más hacia convertirme en un desarrollador Java competente. La práctica constante y la documentación del proceso son fundamentales para el crecimiento profesional."*
-
-⭐ **Si este repositorio te resulta útil, considera darle una estrella para apoyar mi proceso de aprendizaje**
+📅 **Última actualización:** Julio 2025  
+📝 **Versión:** 1.0.0  
+👨‍💻 **Desarrollado con:** ❤️ y mucho ☕
 
 ---
 
-📅 **Última actualización**: Julio 2025 | 📝 **Versión**: 2.0.0 | 👨‍💻 **Desarrollado con**: ❤️ y mucho ☕
-
-</div>
+*Este README es un documento vivo que se actualiza constantemente conforme avanzo en mi journey de aprendizaje Java.*
 
 ## Authors
 
