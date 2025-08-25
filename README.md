@@ -755,7 +755,7 @@ xychart-beta
 ```mermaid
 mindmap
   root((🙏 Gracias))
-    🎓 Generation México
+    🎓 Generation Chile
       Instructores
       Staff
       Programa de Becas
@@ -789,6 +789,15 @@ mindmap
 
 [![Generation](https://img.shields.io/badge/💜_Generation-Changing_Lives_Through
 
+## Bootcamp Impartido por el Profesor:
+
+* [*Guido Perez Zelaya*](https://github.com/gperzal)
+
+## Bootcamp Impartido por las coinstructoras:
+
+* [*Belen Vidal Muñoz*](https://github.com/)
+* [*Carmen Gloria*](https://github.com/)
+  
 ## Authors
 
 
