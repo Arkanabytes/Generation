@@ -9,8 +9,7 @@ for i in range(0,10,1): # valor inicial, valor de condicion, el otro de incremen
 
 for i in range(5,1,-1): # valor inicial, valor de condicion, el otro de incremento
     print(i)
-    
-    
+      
 #Recorrer Lista
 mi_lista = ["aeiou",1234, True,'s']
 mi_lista[0]#"aeiou"
