@@ -12,7 +12,6 @@ altura = 1.75
 nombre_mascota = " Ayun Kenay"
 
 ## Tipo de datos compuestos - Estructura de datos
-
 # tuplas: inmutable; () los datos se separan por coma(,); todas las tuplas empiezan en la posicion cero
 #Tamaño -> cantidad de elementos
 perro = ('Ayun', 'kenay', 5, False)
