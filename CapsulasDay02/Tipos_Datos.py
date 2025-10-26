@@ -60,7 +60,6 @@ dic_alumnos = {
 print(dic_alumnos['alumno2']) #-> alumno2': {'nombre': 'Alexis', 'apellido':'Quezada', 'edad':32},
 
 #como agregar k:v al diccionario
-
 #Si la key no existe, crea el par clave: valor; en caso contrario lo actualiza
 dic_alumnos['nombre_curso'] = 'Los pythonisos'
 
