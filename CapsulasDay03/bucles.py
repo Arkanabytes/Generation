@@ -16,8 +16,7 @@ mi_lista[0]#"aeiou"
 print("tamaño de lista ",len(mi_lista))
 for i in range(0,len(mi_lista)):#range(0,4)#{0,1,2,3}
        print(i,mi_lista[i])
-       
-       
+             
 print()
 #foreach esto es por posiscion del elemento
 for elemento in mi_lista:
