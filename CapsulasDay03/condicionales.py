@@ -18,7 +18,6 @@ elif numero > 10: ##10 < numero: #numero > 10
 else:
     print("El numero es menor a 10")
  
- 
 print(1 == 1) #True
 print("1" == 1)#False
 print('1' == 1)#False
