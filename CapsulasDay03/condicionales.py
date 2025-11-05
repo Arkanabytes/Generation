@@ -30,7 +30,6 @@ print(not (1 != 1))# True
  
 #and & or
  
- 
 #and (^; &; and) 2^2
 V ^ V = V
 V ^ F = F
